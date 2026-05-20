@@ -5,7 +5,7 @@ const departements = [
         couleur: 'var(--vert)',
         bgCouleur: 'var(--vert-pale)',
         img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
-        description: 'La filière NTIC forme des spécialistes en réseaux informatiques, systèmes, cybersécurité et nouvelles technologies du numérique.',
+        description: 'Le programme de licence en Nouvelles Technologies de l\'Information et de la Communication (NTIC) se concentre sur la formation de professionnels capables de maîtriser les concepts clés de l\'informatique, tels que la programmation, le génie logiciel et l\'analyse des données. Les étudiants développent des compétences essentielles en réseaux, cybersécurité et gestion des bases de données. Ce cursus rigoureux est conçu pour répondre aux besoins actuels du marché du travail, en offrant une expertise technique pour aborder les défis contemporains liés aux systèmes d\'information et à la gouvernance des données.',
         matieres: ['Réseaux informatiques', 'Cybersécurité', 'Systèmes d\'exploitation', 'Cloud computing', 'Administration système', 'Protocoles réseau', 'Bases de données', 'Développement web'],
         competences: ['Configurer et administrer des réseaux', 'Sécuriser des systèmes d\'information', 'Gérer des serveurs et infrastructures', 'Mettre en place des solutions cloud'],
         debouches: ['Administrateur réseau', 'Ingénieur cybersécurité', 'Technicien infrastructure', 'Consultant IT'],
