@@ -1,89 +1,58 @@
-import { useState } from 'react'
-
 export default function Contact() {
-    const [form, setForm] = useState({ nom: '', email: '', sujet: '', message: '' })
-    const [envoye, setEnvoye] = useState(false)
-
-    const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        // TODO: connecter avec l'API Django
-        console.log('Message envoyé:', form)
-        setEnvoye(true)
-        setForm({ nom: '', email: '', sujet: '', message: '' })
-        setTimeout(() => setEnvoye(false), 4000)
-    }
-
     return (
         <>
-            <section style={{ background: 'var(--vert-pale)', padding: '4rem 0 2rem' }}>
+            <section style={{ height: 320, display: 'flex', alignItems: 'center', background: 'var(--primary)' }}>
                 <div className="container">
-                    <span className="badge badge-vert" style={{ marginBottom: '1rem' }}>Contact</span>
-                    <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', marginBottom: '1rem' }}>Contactez-nous</h1>
-                    <p style={{ color: 'var(--gris)', maxWidth: 520 }}>Une question sur nos formations ? Écrivez-nous, nous vous répondrons dans les plus brefs délais.</p>
+                    <span className="badge badge-blue" style={{ background: 'rgba(255,255,255,0.1)', color: '#fff' }}>Assistance</span>
+                    <h1 style={{ fontSize: '3.5rem', color: '#fff', marginTop: '1rem', fontWeight: 900 }}>Connectez-vous au C.I</h1>
                 </div>
             </section>
 
             <section className="section">
                 <div className="container">
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '4rem', alignItems: 'start' }}>
-
-                        {/* Infos contact */}
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '5rem', alignItems: 'flex-start' }}>
                         <div>
-                            <h2 style={{ fontSize: '1.3rem', marginBottom: '1.5rem' }}>Nos coordonnées</h2>
-                            {[
-                                { icon: '📍', titre: 'Adresse', val: 'Université Gamal Abdel Nasser\nConakry, République de Guinée' },
-                                { icon: '✉️', titre: 'Email', val: 'centre-info@uganc.edu.gn' },
-                                { icon: '📞', titre: 'Téléphone', val: '+224 000 000 000' },
-                                { icon: '🕐', titre: 'Horaires', val: 'Lundi – Vendredi\n08h00 – 17h00' },
-                            ].map(c => (
-                                <div key={c.titre} className="card" style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
-                                    <div style={{ fontSize: '1.5rem' }}>{c.icon}</div>
-                                    <div>
-                                        <div style={{ fontWeight: 600, color: 'var(--vert)', fontSize: '0.88rem', marginBottom: '0.2rem' }}>{c.titre}</div>
-                                        <div style={{ color: 'var(--gris)', fontSize: '0.88rem', whiteSpace: 'pre-line' }}>{c.val}</div>
+                            <h2 className="section-title">Prenons contact</h2>
+                            <p style={{ color: 'var(--text-light)', marginBottom: '3rem', fontSize: '1.1rem' }}>Notre équipe pédagogique et administrative est à votre écoute pour toute question.</p>
+
+                            <div style={{ display: 'grid', gap: '1.5rem' }}>
+                                {[
+                                    { i: '📍', l: 'Campus UGANC', v: 'Conakry, Guinée' },
+                                    { i: '✉️', l: 'Email Académique', v: 'centre-info@uganc.edu.gn' },
+                                    { i: '📞', l: 'Standard Téléphonique', v: '+224 000 000 000' },
+                                ].map(c => (
+                                    <div key={c.l} className="card" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                                        <div style={{ fontSize: '2rem' }}>{c.i}</div>
+                                        <div>
+                                            <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', fontWeight: 600, textTransform: 'uppercase' }}>{c.l}</div>
+                                            <div style={{ fontWeight: 700, color: 'var(--primary)' }}>{c.v}</div>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
 
-                        {/* Formulaire */}
-                        <div className="card">
-                            <h2 style={{ fontSize: '1.3rem', marginBottom: '1.5rem' }}>Envoyer un message</h2>
-
-                            {envoye && (
-                                <div style={{ background: 'var(--vert-pale)', border: '1px solid var(--vert)', color: 'var(--vert)', padding: '0.75rem 1rem', borderRadius: 8, marginBottom: '1.25rem', fontSize: '0.9rem' }}>
-                                    ✅ Message envoyé avec succès ! Nous vous répondrons bientôt.
-                                </div>
-                            )}
-
-                            <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1rem' }}>
+                        <div className="card" style={{ padding: '3rem' }}>
+                            <form style={{ display: 'grid', gap: '1.5rem' }}>
                                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                                    <div>
-                                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, marginBottom: '0.4rem' }}>Nom complet *</label>
-                                        <input name="nom" value={form.nom} onChange={handleChange} required placeholder="Ex: Mamadou Diallo"
-                                            style={{ width: '100%', padding: '0.6rem 0.85rem', border: '1px solid var(--border)', borderRadius: 8, fontSize: '0.9rem', fontFamily: 'DM Sans, sans-serif', outline: 'none' }} />
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--primary)' }}>Nom Complet</label>
+                                        <input type="text" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)' }} />
                                     </div>
-                                    <div>
-                                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, marginBottom: '0.4rem' }}>Email *</label>
-                                        <input name="email" type="email" value={form.email} onChange={handleChange} required placeholder="exemple@mail.com"
-                                            style={{ width: '100%', padding: '0.6rem 0.85rem', border: '1px solid var(--border)', borderRadius: 8, fontSize: '0.9rem', fontFamily: 'DM Sans, sans-serif', outline: 'none' }} />
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--primary)' }}>Email</label>
+                                        <input type="email" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)' }} />
                                     </div>
                                 </div>
-                                <div>
-                                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, marginBottom: '0.4rem' }}>Sujet *</label>
-                                    <input name="sujet" value={form.sujet} onChange={handleChange} required placeholder="Ex: Inscription licence NTIC"
-                                        style={{ width: '100%', padding: '0.6rem 0.85rem', border: '1px solid var(--border)', borderRadius: 8, fontSize: '0.9rem', fontFamily: 'DM Sans, sans-serif', outline: 'none' }} />
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                    <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--primary)' }}>Sujet</label>
+                                    <input type="text" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)' }} />
                                 </div>
-                                <div>
-                                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, marginBottom: '0.4rem' }}>Message *</label>
-                                    <textarea name="message" value={form.message} onChange={handleChange} required rows={5} placeholder="Votre message..."
-                                        style={{ width: '100%', padding: '0.6rem 0.85rem', border: '1px solid var(--border)', borderRadius: 8, fontSize: '0.9rem', fontFamily: 'DM Sans, sans-serif', outline: 'none', resize: 'vertical' }} />
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                    <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--primary)' }}>Message</label>
+                                    <textarea rows="5" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)', resize: 'none' }}></textarea>
                                 </div>
-                                <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.75rem' }}>
-                                    Envoyer le message ✉️
-                                </button>
+                                <button type="button" className="btn btn-primary" style={{ width: '100%', padding: '1.25rem' }}>Envoyer le message</button>
                             </form>
                         </div>
                     </div>

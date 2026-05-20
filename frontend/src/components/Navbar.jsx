@@ -17,73 +17,50 @@ export default function Navbar() {
     const [ouvert, setOuvert] = useState(false)
 
     return (
-        <nav style={{
-            background: '#fff',
-            borderBottom: '1px solid #d1e8d9',
+        <nav className="glass" style={{
             position: 'sticky',
             top: 0,
-            zIndex: 100,
-            boxShadow: '0 2px 12px rgba(0,102,51,0.07)'
+            zIndex: 1000,
+            padding: '0.5rem 0',
+            transition: 'all 0.3s ease'
         }}>
             <div className="container" style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0.65rem 1.5rem'
+                justifyContent: 'space-between'
             }}>
 
-                {/* Logo gauche : UGANC + CI */}
-                <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
-
-                    {/* Logo UGANC */}
-                    <img
-                        src={logosUGANC}
-                        alt="Logo UGANC"
-                        style={{ height: 48, width: 'auto', objectFit: 'contain' }}
-                    />
-
-                    {/* Séparateur vertical */}
-                    <div style={{ width: 1, height: 40, background: '#d1e8d9' }} />
-
-                    {/* Logo Centre Informatique */}
-                    <img
-                        src={logosCI}
-                        alt="Logo Centre Informatique"
-                        style={{ height: 44, width: 'auto', objectFit: 'contain' }}
-                    />
-
-                    {/* Texte */}
-                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                {/* Logo Section */}
+                <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.4rem', background: 'rgba(255,255,255,0.8)', borderRadius: '10px' }}>
+                        <img src={logosUGANC} alt="UGANC" style={{ height: 42, width: 'auto', objectFit: 'contain' }} />
+                        <div style={{ width: 1, height: 28, background: '#e2e8f0' }} />
+                        <img src={logosCI} alt="CI" style={{ height: 38, width: 'auto', objectFit: 'contain' }} />
+                    </div>
+                    <div className="nav-text-container" style={{ display: 'flex', flexDirection: 'column' }}>
                         <span style={{
                             fontFamily: 'Playfair Display, serif',
-                            fontWeight: 700,
-                            color: 'var(--vert)',
-                            fontSize: '0.92rem',
-                            lineHeight: 1.25
+                            fontWeight: 800,
+                            color: 'var(--primary)',
+                            fontSize: '1rem',
+                            letterSpacing: '-0.01em'
                         }}>Centre Informatique</span>
-                        <span style={{
-                            fontSize: '0.7rem',
-                            color: 'var(--gris)',
-                            lineHeight: 1.4
-                        }}>UGANC – Conakry</span>
+                        <span style={{ fontSize: '0.7rem', color: 'var(--text-light)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>UGANC Conakry</span>
                     </div>
                 </NavLink>
 
-                {/* Liens desktop */}
-                <ul style={{ display: 'flex', gap: '0.2rem', listStyle: 'none', alignItems: 'center' }}
-                    className="nav-desktop">
+                {/* Desktop Menu */}
+                <ul className="nav-desktop" style={{ display: 'flex', gap: '0.5rem', listStyle: 'none' }}>
                     {liens.map(l => (
                         <li key={l.path}>
                             <NavLink to={l.path} style={({ isActive }) => ({
-                                padding: '0.42rem 0.8rem',
-                                borderRadius: 6,
-                                fontSize: '0.88rem',
-                                fontWeight: 500,
-                                color: isActive ? 'var(--vert)' : 'var(--texte)',
-                                background: isActive ? 'var(--vert-pale)' : 'transparent',
-                                transition: 'all 0.15s',
-                                textDecoration: 'none',
-                                display: 'block'
+                                padding: '0.6rem 1rem',
+                                borderRadius: 'var(--radius-sm)',
+                                fontSize: '0.9rem',
+                                fontWeight: 600,
+                                color: isActive ? 'var(--white)' : 'var(--text)',
+                                background: isActive ? 'var(--primary)' : 'transparent',
+                                transition: 'all 0.3s ease'
                             })}>
                                 {l.label}
                             </NavLink>
@@ -91,43 +68,53 @@ export default function Navbar() {
                     ))}
                 </ul>
 
-                {/* Burger mobile */}
+                {/* Action Button (Optional, but looks premium) */}
+                <NavLink to="/contact" className="btn btn-primary nav-cta" style={{ padding: '0.5rem 1.25rem', fontSize: '0.85rem', display: 'none' }}>
+                    S'inscrire
+                </NavLink>
+
+                {/* Mobile Toggle */}
                 <button
                     onClick={() => setOuvert(!ouvert)}
+                    className="burger"
+                    aria-label="Menu"
                     style={{
                         display: 'none',
-                        background: 'none', border: 'none',
-                        cursor: 'pointer', fontSize: '1.5rem',
-                        color: 'var(--vert)'
-                    }}
-                    className="burger"
-                    aria-label="Menu">
-                    {ouvert ? '✕' : '☰'}
+                        background: 'var(--primary-pale)',
+                        border: 'none',
+                        borderRadius: '10px',
+                        padding: '0.5rem',
+                        cursor: 'pointer',
+                        color: 'var(--primary)'
+                    }}>
+                    <span style={{ fontSize: '1.5rem' }}>{ouvert ? '✕' : '☰'}</span>
                 </button>
             </div>
 
-            {/* Menu mobile */}
+            {/* Mobile Sidebar/Menu */}
             {ouvert && (
                 <div style={{
-                    background: '#fff',
-                    borderTop: '1px solid var(--border)',
-                    padding: '1rem 1.5rem'
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    right: 0,
+                    background: 'var(--white)',
+                    padding: '1.5rem',
+                    boxShadow: 'var(--shadow-lg)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1rem'
                 }}>
-                    {/* Logos mobile */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid var(--border)' }}>
-                        <img src={logosUGANC} alt="UGANC" style={{ height: 40, objectFit: 'contain' }} />
-                        <img src={logosCI} alt="CI" style={{ height: 36, objectFit: 'contain' }} />
-                    </div>
                     {liens.map(l => (
                         <NavLink key={l.path} to={l.path}
                             onClick={() => setOuvert(false)}
                             style={({ isActive }) => ({
-                                display: 'block',
-                                padding: '0.65rem 0',
-                                color: isActive ? 'var(--vert)' : 'var(--texte)',
-                                fontWeight: isActive ? 600 : 400,
-                                borderBottom: '1px solid var(--gris-clair)',
-                                textDecoration: 'none'
+                                padding: '1rem',
+                                borderRadius: 'var(--radius-sm)',
+                                color: isActive ? 'var(--primary)' : 'var(--text)',
+                                background: isActive ? 'var(--primary-pale)' : 'transparent',
+                                fontWeight: 700,
+                                fontSize: '1rem'
                             })}>
                             {l.label}
                         </NavLink>
@@ -136,9 +123,10 @@ export default function Navbar() {
             )}
 
             <style>{`
-        @media (max-width: 768px) {
-          .nav-desktop { display: none !important; }
-          .burger { display: block !important; }
+        @media (max-width: 992px) {
+          .nav-desktop, .nav-cta { display: none !important; }
+          .burger { display: flex !important; }
+          .nav-text-container { display: none !important; }
         }
       `}</style>
         </nav>

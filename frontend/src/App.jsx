@@ -8,6 +8,7 @@ import Enseignants from './pages/Enseignants'
 import Actualites from './pages/Actualites'
 import Galerie from './pages/Galerie'
 import Contact from './pages/Contact'
+import DepartementNTIC from './pages/DepartementNTIC'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/" element={<Accueil />} />
           <Route path="/apropos" element={<APropos />} />
           <Route path="/departements" element={<Departements />} />
+          <Route path="/departements/ntic" element={<DepartementNTIC />} />
           <Route path="/enseignants" element={<Enseignants />} />
           <Route path="/actualites" element={<Actualites />} />
           <Route path="/galerie" element={<Galerie />} />
