@@ -7,10 +7,11 @@ const actus = [
 export default function Actualites() {
     return (
         <>
-            <section style={{ height: 320, display: 'flex', alignItems: 'center', background: 'var(--primary)' }}>
+            <section style={{ height: 320, display: 'flex', alignItems: 'center', background: 'linear-gradient(135deg, var(--bleu-fonce) 0%, var(--bleu) 100%)', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 80% 20%, rgba(212,160,23,0.15) 0%, transparent 50%)' }} />
                 <div className="container">
                     <span className="badge badge-blue" style={{ background: 'rgba(255,255,255,0.1)', color: '#fff' }}>Actualités</span>
-                    <h1 style={{ fontSize: '3.5rem', color: '#fff', marginTop: '1rem', fontWeight: 900 }}>Pôle Information</h1>
+                    <h1 style={{ fontSize: '3.5rem', color: '#fff', marginTop: '1rem', fontWeight: 900 }}>Actualités & Événements</h1>
                 </div>
             </section>
 
@@ -23,9 +24,9 @@ export default function Actualites() {
                                     <span className="badge badge-blue">{a.cat}</span>
                                     <span style={{ fontSize: '0.85rem', color: 'var(--text-light)' }}>{a.date}</span>
                                 </div>
-                                <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', flexShrink: 0 }}>{a.titre}</h3>
+                                <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', flexShrink: 0, color: 'var(--bleu-fonce)' }}>{a.titre}</h3>
                                 <p style={{ color: 'var(--text-light)', fontSize: '0.92rem', marginBottom: '2rem', flexGrow: 1 }}>{a.desc}</p>
-                                <button className="btn btn-outline" style={{ width: '100%', fontSize: '0.85rem' }}>Lire l'article</button>
+                                <button className="btn btn-outline" style={{ width: '100%', fontSize: '0.9rem', padding: '0.75rem', borderColor: 'var(--border)' }}>Lire l'article</button>
                             </div>
                         ))}
                     </div>

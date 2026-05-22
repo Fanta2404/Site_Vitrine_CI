@@ -1,32 +1,33 @@
 :root {
-  /* Tech Blue & White Palette */
-  --primary: #1e3a8a;
-  /* Deep Navy */
-  --primary-light: #3b82f6;
-  /* Electric Blue */
-  --primary-pale: #eff6ff;
-  /* Soft Blue Tint */
-  --secondary: #0ea5e9;
-  /* Sky Cyan */
-  --accent: #f59e0b;
-  /* Gold (keep a bit of UGANC flair? maybe not, user said blue/white) */
-  --white: #ffffff;
-  --bg: #ffffff;
-  --bg-alt: #f8fafc;
-  --text: #0f172a;
-  /* Slate Dark */
-  --text-light: #64748b;
-  /* Slate Gray */
-  --border: #e2e8f0;
+  /* ── Couleurs Centre Informatique ── */
+  --bleu: #1a6bc8;
+  --bleu-fonce: #0e4a91;
+  --bleu-clair: #2272c3;
+  --bleu-pale: #e8f1fb;
 
-  /* Modern Design Tokens */
-  --radius: 16px;
-  --radius-sm: 8px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
-  --shadow: 0 4px 20px rgba(30, 58, 138, 0.08);
-  --shadow-lg: 0 10px 30px rgba(30, 58, 138, 0.12);
-  --glass: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.3);
+  /* ── Couleurs UGANC ── */
+  --bordeaux: #7a1a2e;
+  --bordeaux-pale: #f9eaed;
+  --or: #d4a017;
+  --or-pale: #fdf3d9;
+
+  /* ── Neutres ── */
+  --blanc: #ffffff;
+  --gris-clair: #f4f7fb;
+  --gris: #6b7280;
+  --texte: #0d1b2e;
+  --border: #c3d9f5;
+  --radius: 12px;
+  --radius-sm: 6px;
+  --shadow: 0 2px 16px rgba(26, 107, 200, 0.08);
+
+  /* ── Alias anciens → nouveaux (compatibilité) ── */
+  --vert: var(--bleu);
+  --vert-clair: var(--bleu-clair);
+  --vert-pale: var(--bleu-pale);
+  --rouge: var(--bordeaux);
+  --rouge-pale: var(--bordeaux-pale);
+  --jaune: var(--or);
 }
 
 * {
@@ -37,156 +38,301 @@
 
 body {
   font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--blanc);
+  color: var(--texte);
   line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 h1,
 h2,
-h3,
-h4 {
+h3 {
   font-family: 'Playfair Display', serif;
-  color: var(--primary);
-  line-height: 1.25;
+  color: var(--bleu-fonce);
 }
 
 a {
   text-decoration: none;
   color: inherit;
-  transition: all 0.2s ease;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── CONTAINER ── */
 .container {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
-/* Premium Buttons */
+/* ── BOUTONS ── */
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.75rem;
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
   border-radius: var(--radius-sm);
   font-family: 'DM Sans', sans-serif;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   border: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  gap: 0.5rem;
+  transition: all 0.2s ease;
+  text-align: center;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
-  color: var(--white);
-  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+  background: var(--bleu);
+  color: #fff;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(30, 58, 138, 0.3);
-  filter: brightness(1.1);
+  background: var(--bleu-fonce);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--primary);
-  border: 2px solid var(--primary);
+  color: var(--bleu);
+  border: 1.5px solid var(--bleu);
 }
 
 .btn-outline:hover {
-  background: var(--primary-pale);
-  transform: translateY(-2px);
+  background: var(--bleu-pale);
 }
 
-/* Glass & Cards */
-.glass {
-  background: var(--glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
+.btn-gold {
+  background: var(--or);
+  color: #fff;
+  font-weight: 700;
 }
 
-.card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 2rem;
-  box-shadow: var(--shadow);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+.btn-gold:hover {
+  background: #b8860b;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--primary-light);
-}
-
-/* Layout Utilities */
+/* ── SECTIONS ── */
 .section {
-  padding: 8rem 0;
+  padding: 5rem 0;
 }
 
 .section-title {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  letter-spacing: -0.02em;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .section-sub {
-  color: var(--text-light);
-  font-size: 1.15rem;
-  margin-bottom: 4rem;
-  max-width: 600px;
+  color: var(--gris);
+  font-size: 1rem;
+  margin-bottom: 3rem;
 }
 
+/* ── BADGES ── */
 .badge {
   display: inline-block;
-  padding: 0.35rem 1rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 0.78rem;
+  font-weight: 500;
 }
 
-.badge-blue {
-  background: var(--primary-pale);
-  color: var(--primary);
+.badge-bleu {
+  background: var(--bleu-pale);
+  color: var(--bleu-fonce);
 }
 
+.badge-bordeaux {
+  background: var(--bordeaux-pale);
+  color: var(--bordeaux);
+}
+
+.badge-or {
+  background: var(--or-pale);
+  color: #7a5a00;
+}
+
+/* Alias */
+.badge-vert {
+  background: var(--bleu-pale);
+  color: var(--bleu-fonce);
+}
+
+.badge-rouge {
+  background: var(--bordeaux-pale);
+  color: var(--bordeaux);
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--blanc);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(26, 107, 200, 0.14);
+}
+
+/* ── GRILLES ── */
 .grid-2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
 }
 
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
 .grid-4 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+/* ── DARK MODE ── */
+body.dark {
+  --blanc: #0d1b2e;
+  --gris-clair: #1a2d45;
+  --texte: #e2eaf4;
+  --gris: #94a8be;
+  --border: #1e3a5f;
+  --shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .card {
+  background: #1a2d45;
+  border-color: #1e3a5f;
+}
+
+body.dark nav {
+  background: #0d1b2e !important;
+  border-color: #1e3a5f !important;
+}
+
+body.dark footer {
+  background: #061225 !important;
+}
+
+/* ── ANIMATIONS ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
+@media (max-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
 }
 
 @media (max-width: 768px) {
   .section {
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
 
   .section-title {
-    font-size: 2.2rem;
+    font-size: 1.5rem;
   }
 
   .section-sub {
-    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.88rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .nav-desktop {
+    display: none !important;
+  }
+
+  .burger {
+    display: block !important;
+  }
+
+  .hero-btns {
+    flex-direction: column !important;
+  }
+
+  .hero-btns .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .layout-2col {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .tuiles-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .form-2col {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .tuiles-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
   }
 }

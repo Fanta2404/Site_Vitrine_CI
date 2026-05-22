@@ -15,7 +15,7 @@ export default function Enseignants() {
 
     return (
         <>
-            <section style={{ height: 320, display: 'flex', alignItems: 'center', background: 'var(--primary)' }}>
+            <section style={{ height: 320, display: 'flex', alignItems: 'center', background: 'var(--bleu-fonce)' }}>
                 <div className="container">
                     <span className="badge badge-blue" style={{ background: 'rgba(255,255,255,0.1)', color: '#fff' }}>Notre Faculté</span>
                     <h1 style={{ fontSize: '3.5rem', color: '#fff', marginTop: '1rem', fontWeight: 900 }}>Experts & Formateurs</h1>
@@ -28,7 +28,7 @@ export default function Enseignants() {
                     <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', marginBottom: '4rem', flexWrap: 'wrap' }}>
                         {depts.map(d => (
                             <button key={d} onClick={() => setFiltre(d)} className="btn" style={{
-                                background: filtre === d ? 'var(--primary)' : 'var(--bg-alt)',
+                                background: filtre === d ? 'var(--bleu-fonce)' : 'var(--bg-alt)',
                                 color: filtre === d ? '#fff' : 'var(--text)',
                                 padding: '0.6rem 1.5rem',
                                 borderRadius: '12px'
@@ -43,7 +43,7 @@ export default function Enseignants() {
                             <div key={e.nom} className="card" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
                                 <div style={{
                                     width: 80, height: 80, borderRadius: '20px',
-                                    background: 'var(--primary-pale)', color: 'var(--primary)',
+                                    background: 'var(--bleu-pale)', color: 'var(--bleu-fonce)',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     fontSize: '1.5rem', fontWeight: 800, flexShrink: 0
                                 }}>
@@ -54,7 +54,7 @@ export default function Enseignants() {
                                         <h3 style={{ fontSize: '1.15rem' }}>{e.nom}</h3>
                                         <span className="badge badge-blue">{e.dept}</span>
                                     </div>
-                                    <div style={{ fontWeight: 600, color: 'var(--primary-light)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>{e.titre}</div>
+                                    <div style={{ fontWeight: 600, color: 'var(--bleu-clair)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>{e.titre}</div>
                                     <p style={{ color: 'var(--text-light)', fontSize: '0.88rem' }}>{e.bio}</p>
                                 </div>
                             </div>

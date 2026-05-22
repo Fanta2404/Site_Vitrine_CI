@@ -23,7 +23,7 @@ export default function APropos() {
                 height: 420,
                 display: 'flex',
                 alignItems: 'center',
-                background: 'var(--primary)',
+                background: 'var(--bleu-fonce)',
                 overflow: 'hidden'
             }}>
                 <div className="container" style={{ position: 'relative', zIndex: 10 }}>
@@ -49,7 +49,7 @@ export default function APropos() {
                                     ].map(x => (
                                         <div key={x.l} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
                                             <span style={{ fontWeight: 600 }}>{x.l}</span>
-                                            <span style={{ color: 'var(--primary-light)' }}>{x.v}</span>
+                                            <span style={{ color: 'var(--bleu-clair)' }}>{x.v}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -71,7 +71,7 @@ export default function APropos() {
             </section>
 
             {/* Strategic Missions */}
-            <section className="section" style={{ background: 'var(--primary)', color: '#fff' }}>
+            <section className="section" style={{ background: 'var(--bleu-fonce)', color: '#fff' }}>
                 <div className="container">
                     <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
                         <h2 className="section-title" style={{ color: '#fff' }}>Missions & Engagements</h2>
@@ -97,7 +97,7 @@ export default function APropos() {
                         {valeurs.map(v => (
                             <div key={v.titre} className="card" style={{ textAlign: 'center', border: 'none', boxShadow: 'none', background: 'var(--bg-alt)' }}>
                                 <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>{v.icon}</div>
-                                <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--primary)' }}>{v.titre}</h3>
+                                <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--bleu-fonce)' }}>{v.titre}</h3>
                                 <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{v.desc}</p>
                             </div>
                         ))}

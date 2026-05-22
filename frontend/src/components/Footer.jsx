@@ -5,9 +5,9 @@ import logosUGANC from '../assets/logos_uganc.png'
 export default function Footer() {
     return (
         <footer style={{
-            background: 'var(--primary)',
-            color: 'var(--white)',
-            padding: '5rem 0 2rem',
+            background: 'var(--bleu-fonce)',
+            color: '#fff',
+            padding: '3rem 0 1.5rem',
             position: 'relative',
             overflow: 'hidden'
         }}>
@@ -23,7 +23,7 @@ export default function Footer() {
             }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
+                <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
 
                     {/* Institutional Info */}
                     <div>
@@ -64,9 +64,10 @@ export default function Footer() {
                     <div>
                         <h4 style={{ color: 'var(--white)', fontWeight: 700, marginBottom: '1.5rem', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contact</h4>
                         <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.92rem', lineHeight: 1.8 }}>
-                            <p>📍 Conakry, Guinée - Campus UGANC</p>
-                            <p>📧 centre-info@uganc.edu.gn</p>
-                            <p>📞 +224 000 000 000</p>
+                            <p>📍 Dixinn, Conakry 33139</p>
+                            <p>📧 direction@ci.edu.gn</p>
+                            <p>📞 +224 624 08 45 01</p>
+                            <p>📱 +224 657 99 43 57</p>
                         </div>
                     </div>
                 </div>
