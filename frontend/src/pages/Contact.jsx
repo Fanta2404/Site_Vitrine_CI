@@ -1,3 +1,5 @@
+import { MapPin, Mail, Phone } from 'lucide-react'
+
 export default function Contact() {
     return (
         <>
@@ -17,21 +19,21 @@ export default function Contact() {
 
                             <div style={{ display: 'grid', gap: '1.5rem' }}>
                                 <div className="card" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-                                    <div style={{ fontSize: '2rem' }}>📍</div>
+                                    <div style={{ color: 'var(--bleu)' }}><MapPin size={32} /></div>
                                     <div>
                                         <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', fontWeight: 600, textTransform: 'uppercase' }}>Localisation</div>
                                         <div style={{ fontWeight: 700, color: 'var(--bleu-fonce)' }}>Dixinn, Conakry 33139</div>
                                     </div>
                                 </div>
                                 <div className="card" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-                                    <div style={{ fontSize: '2rem' }}>✉️</div>
+                                    <div style={{ color: 'var(--bleu)' }}><Mail size={32} /></div>
                                     <div>
                                         <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', fontWeight: 600, textTransform: 'uppercase' }}>Email</div>
                                         <div style={{ fontWeight: 700, color: 'var(--bleu-fonce)' }}>direction@ci.edu.gn</div>
                                     </div>
                                 </div>
                                 <div className="card" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-                                    <div style={{ fontSize: '2rem' }}>📞</div>
+                                    <div style={{ color: 'var(--bleu)' }}><Phone size={32} /></div>
                                     <div>
                                         <div style={{ fontSize: '0.8rem', color: 'var(--text-light)', fontWeight: 600, textTransform: 'uppercase' }}>Téléphone & Mobile</div>
                                         <div style={{ fontWeight: 700, color: 'var(--bleu-fonce)' }}>
@@ -63,7 +65,9 @@ export default function Contact() {
                                     <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--bleu-fonce)' }}>Message</label>
                                     <textarea rows="5" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)', resize: 'none' }}></textarea>
                                 </div>
-                                <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.75rem' }}>Envoyer le message ✉️</button>
+                                <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                                    Envoyer le message <Mail size={18} />
+                                </button>
                             </form>
                         </div>
                     </div>

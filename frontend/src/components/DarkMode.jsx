@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Sun, Moon } from 'lucide-react'
 
 export default function DarkMode() {
     const [dark, setDark] = useState(() => localStorage.getItem('theme') === 'dark')
@@ -21,7 +22,7 @@ export default function DarkMode() {
                 transition: 'all 0.2s', color: 'var(--texte)'
             }}
         >
-            {dark ? '☀️' : '🌙'}
+            {dark ? <Sun size={18} /> : <Moon size={18} />}
         </button>
     )
 }

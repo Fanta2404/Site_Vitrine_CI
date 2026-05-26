@@ -1,17 +1,19 @@
+import { Star, Lightbulb, Handshake, Wrench, Building2, Globe, Rocket, Users, Laptop, Trophy } from 'lucide-react'
+
 const valeurs = [
-    { titre: 'Excellence', desc: 'Nous visons l\'excellence académique dans tous nos programmes de recherche.', icon: '⭐' },
-    { titre: 'Innovation', desc: 'Nous intégrons les dernières avancées technologiques au cœur de la pédagogie.', icon: '💡' },
-    { titre: 'Solidarité', desc: 'Un esprit de corps entre enseignants, étudiants et experts du secteur.', icon: '🤝' },
-    { titre: 'Pratique', desc: 'Une formation orientée terrain avec des labos de pointe.', icon: '🛠️' },
+    { titre: 'Excellence', desc: 'Nous visons l\'excellence académique dans tous nos programmes de recherche.', icon: Star },
+    { titre: 'Innovation', desc: 'Nous intégrons les dernières avancées technologiques au cœur de la pédagogie.', icon: Lightbulb },
+    { titre: 'Solidarité', desc: 'Un esprit de corps entre enseignants, étudiants et experts du secteur.', icon: Handshake },
+    { titre: 'Pratique', desc: 'Une formation orientée terrain avec des labos de pointe.', icon: Wrench },
 ]
 
 const missions = [
-    { titre: 'Synergie Locale', desc: 'Créer des liens forts avec les acteurs locaux pour garantir l\'employabilité immédiate des diplômés.', icon: '🏢' },
-    { titre: 'Rayonnement Mondial', desc: 'Développer des partenariats internationaux pour une vision globale de l\'ingénierie numérique.', icon: '🌍' },
-    { titre: 'Digitalisation', desc: 'Intégrer les TIC au cœur de l\'université pour dynamiser les méthodes d\'apprentissage.', icon: '🚀' },
-    { titre: 'Expertise RH', desc: 'Valoriser les formateurs et assurer une gestion optimale des talents académiques.', icon: '👥' },
-    { titre: 'Apprentissage Agile', desc: 'Prioriser le E-learning et la formation continue pour s\'adapter aux besoins du marché.', icon: '💻' },
-    { titre: 'Innovation Mixte', desc: 'Aligner la recherche académique sur les réalités industrielles contemporaines.', icon: '🏆' },
+    { titre: 'Synergie Locale', desc: 'Créer des liens forts avec les acteurs locaux pour garantir l\'employabilité immédiate des diplômés.', icon: Building2 },
+    { titre: 'Rayonnement Mondial', desc: 'Développer des partenariats internationaux pour une vision globale de l\'ingénierie numérique.', icon: Globe },
+    { titre: 'Digitalisation', desc: 'Intégrer les TIC au cœur de l\'université pour dynamiser les méthodes d\'apprentissage.', icon: Rocket },
+    { titre: 'Expertise RH', desc: 'Valoriser les formateurs et assurer une gestion optimale des talents académiques.', icon: Users },
+    { titre: 'Apprentissage Agile', desc: 'Prioriser le E-learning et la formation continue pour s\'adapter aux besoins du marché.', icon: Laptop },
+    { titre: 'Innovation Mixte', desc: 'Aligner la recherche académique sur les réalités industrielles contemporaines.', icon: Trophy },
 ]
 
 export default function APropos() {
@@ -80,7 +82,7 @@ export default function APropos() {
                     <div className="grid-3">
                         {missions.map((m, i) => (
                             <div key={i} className="glass" style={{ padding: '2rem', borderRadius: '16px' }}>
-                                <div style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>{m.icon}</div>
+                                <div style={{ display: 'flex', marginBottom: '1.5rem' }}><m.icon size={40} /></div>
                                 <h3 style={{ color: 'var(--white)', fontSize: '1.2rem', marginBottom: '0.75rem' }}>{m.titre}</h3>
                                 <p style={{ fontSize: '0.9rem', opacity: 0.8 }}>{m.desc}</p>
                             </div>
@@ -96,7 +98,7 @@ export default function APropos() {
                     <div className="grid-4" style={{ marginTop: '4rem' }}>
                         {valeurs.map(v => (
                             <div key={v.titre} className="card" style={{ textAlign: 'center', border: 'none', boxShadow: 'none', background: 'var(--bg-alt)' }}>
-                                <div style={{ fontSize: '3rem', marginBottom: '1.5rem' }}>{v.icon}</div>
+                                <div style={{ display: 'flex', justifyContent: 'center', color: 'var(--bleu)', marginBottom: '1.5rem' }}><v.icon size={48} strokeWidth={1.5} /></div>
                                 <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: 'var(--bleu-fonce)' }}>{v.titre}</h3>
                                 <p style={{ color: 'var(--text-light)', fontSize: '0.9rem' }}>{v.desc}</p>
                             </div>

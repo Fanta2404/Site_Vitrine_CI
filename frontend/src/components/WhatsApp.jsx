@@ -1,3 +1,5 @@
+import { MessageCircle } from 'lucide-react'
+
 export default function WhatsApp() {
     const numero = '224000000000' // ← remplace par le vrai numéro
     const message = encodeURIComponent('Bonjour, je souhaite avoir des informations sur les formations du Centre Informatique UGANC.')
@@ -12,11 +14,11 @@ export default function WhatsApp() {
             className="btn-whatsapp"
             style={{
                 position: 'fixed', bottom: '1.5rem', right: '1.5rem',
-                width: 52, height: 52,
+                width: 56, height: 56,
                 background: '#25d366', color: '#fff',
                 borderRadius: '50%', zIndex: 999,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '1.6rem', textDecoration: 'none',
+                textDecoration: 'none',
                 boxShadow: '0 4px 20px rgba(37,211,102,0.45)',
                 transition: 'transform 0.2s, box-shadow 0.2s',
                 animation: 'pulse-wa 2s infinite'
@@ -30,7 +32,7 @@ export default function WhatsApp() {
           50% { box-shadow: 0 4px 30px rgba(37,211,102,0.7); }
         }
       `}</style>
-            💬
+            <MessageCircle size={32} />
         </a>
     )
 }

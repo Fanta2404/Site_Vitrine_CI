@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Lightbulb, Rocket } from 'lucide-react'
 
 const departements = [
     {
@@ -52,13 +53,17 @@ export default function Departements() {
 
                                 <div style={{ display: 'grid', gap: '1.5rem' }}>
                                     <div className="card" style={{ borderLeft: `6px solid ${d.couleur}` }}>
-                                        <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>💡 Modules Clés</h3>
+                                        <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                            <Lightbulb size={20} strokeWidth={2.5} /> Modules Clés
+                                        </h3>
                                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
                                             {d.matieres.map(m => <span key={m} className="badge" style={{ background: 'var(--bg-alt)', color: 'var(--text)', fontSize: '0.8rem' }}>{m}</span>)}
                                         </div>
                                     </div>
                                     <div className="card" style={{ borderLeft: `6px solid ${d.couleur}` }}>
-                                        <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>🚀 Opportunités</h3>
+                                        <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                            <Rocket size={20} strokeWidth={2.5} /> Opportunités
+                                        </h3>
                                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
                                             {d.debouches.map(db => <span key={db} className="badge" style={{ background: d.bgCouleur, color: d.couleur, fontSize: '0.8rem' }}>{db}</span>)}
                                         </div>

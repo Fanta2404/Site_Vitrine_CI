@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Cookie } from 'lucide-react'
 
 export default function CookieBanner() {
     const [visible, setVisible] = useState(false)
@@ -32,8 +33,8 @@ export default function CookieBanner() {
             boxShadow: '0 -4px 24px rgba(0,0,0,0.25)',
             borderTop: '3px solid var(--vert)'
         }}>
-            <p style={{ fontSize: '0.88rem', opacity: 0.9, maxWidth: 600, margin: 0, lineHeight: 1.7 }}>
-                🍪 Ce site utilise des cookies pour améliorer votre expérience de navigation.
+            <p style={{ fontSize: '0.88rem', opacity: 0.9, maxWidth: 600, margin: 0, lineHeight: 1.7, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Cookie size={20} style={{ flexShrink: 0 }} /> Ce site utilise des cookies pour améliorer votre expérience de navigation.
                 En continuant, vous acceptez notre politique de confidentialité.
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', flexShrink: 0 }}>

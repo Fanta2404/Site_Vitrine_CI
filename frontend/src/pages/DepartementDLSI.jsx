@@ -1,17 +1,22 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import {
+    Laptop, Lock, Search, Database, Smartphone, Settings, Target,
+    ClipboardList, BarChart, Rocket, CheckCircle, MapPin, FileText,
+    GraduationCap, Landmark, ShieldCheck, Layers, Calendar
+} from 'lucide-react'
 
 const debouches = [
-    { titre: 'Développeur fullstack sécurisé', icon: '💻' },
-    { titre: 'Ingénieur cybersécurité', icon: '🔐' },
-    { titre: 'Analyste en vulnérabilités', icon: '🔍' },
-    { titre: 'Administrateur bases de données', icon: '🗄️' },
-    { titre: 'Développeur mobile sécurisé', icon: '📱' },
-    { titre: 'Ingénieur DevSecOps', icon: '⚙️' },
-    { titre: 'Consultant en sécurité SI', icon: '🎯' },
-    { titre: 'Chef de projet IT sécurisé', icon: '📋' },
-    { titre: 'Auditeur en sécurité informatique', icon: '📊' },
-    { titre: 'Créateur de startup tech', icon: '🚀' },
+    { titre: 'Développeur fullstack sécurisé', icon: Laptop },
+    { titre: 'Ingénieur cybersécurité', icon: Lock },
+    { titre: 'Analyste en vulnérabilités', icon: Search },
+    { titre: 'Administrateur bases de données', icon: Database },
+    { titre: 'Développeur mobile sécurisé', icon: Smartphone },
+    { titre: 'Ingénieur DevSecOps', icon: Settings },
+    { titre: 'Consultant en sécurité SI', icon: Target },
+    { titre: 'Chef de projet IT sécurisé', icon: ClipboardList },
+    { titre: 'Auditeur en sécurité informatique', icon: BarChart },
+    { titre: 'Créateur de startup tech', icon: Rocket },
 ]
 
 const structureGenerale = [
@@ -272,13 +277,13 @@ const semestres = [
 ]
 
 const sections = [
-    { id: 'debouches', label: 'Nos Débouchés', icon: '💻' },
-    { id: 'admission', label: 'Admission & Inscription', icon: '🎯' },
-    { id: 'programmes', label: 'Programmes Offerts', icon: '🎓' },
-    { id: 'structure', label: 'Structure de la Formation', icon: '📐' },
+    { id: 'debouches', label: 'Nos Débouchés', icon: Laptop },
+    { id: 'admission', label: 'Admission & Inscription', icon: Target },
+    { id: 'programmes', label: 'Programmes Offerts', icon: GraduationCap },
+    { id: 'structure', label: 'Structure de la Formation', icon: Layers },
 ]
 
-function CarteSection({ icon, label, onClick, actif }) {
+function CarteSection({ icon: Icon, label, onClick, actif }) {
     return (
         <div onClick={onClick} style={{
             background: actif ? 'var(--bordeaux)' : '#9b2235',
@@ -290,7 +295,7 @@ function CarteSection({ icon, label, onClick, actif }) {
             transition: 'all 0.2s',
             boxShadow: actif ? '0 8px 24px rgba(122,26,46,0.35)' : '0 2px 8px rgba(0,0,0,0.1)'
         }}>
-            <div style={{ fontSize: '2.2rem', marginBottom: '0.6rem' }}>{icon}</div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.6rem' }}><Icon size={36} /></div>
             <div style={{ fontWeight: 600, fontSize: '0.9rem', lineHeight: 1.4 }}>{label}</div>
         </div>
     )
@@ -367,8 +372,14 @@ export default function DepartementDLSI() {
                         180 crédits — 6 semestres — Formation orientée sécurité, développement et cybersécurité.
                     </p>
                     <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                        {['🎓 Licence — 3 ans', '📚 Master — 2 ans', '🔐 Spécialisation Cybersécurité'].map(t => (
-                            <span key={t} style={{ background: 'rgba(255,255,255,0.12)', color: '#fff', padding: '0.35rem 0.9rem', borderRadius: 999, fontSize: '0.82rem' }}>{t}</span>
+                        {[
+                            { text: 'Licence — 3 ans', icon: GraduationCap },
+                            { text: 'Master — 2 ans', icon: ShieldCheck },
+                            { text: 'Spécialisation Cybersécurité', icon: Lock }
+                        ].map(t => (
+                            <span key={t.text} style={{ background: 'rgba(255,255,255,0.12)', color: '#fff', padding: '0.35rem 0.9rem', borderRadius: 999, fontSize: '0.82rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                                <t.icon size={16} /> {t.text}
+                            </span>
                         ))}
                     </div>
                 </div>
@@ -417,7 +428,7 @@ export default function DepartementDLSI() {
                             <div className="grid-2" style={{ marginBottom: '2.5rem' }}>
                                 {debouches.map(d => (
                                     <div key={d.titre} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.25rem', background: 'var(--bordeaux-pale)', border: '1px solid #f0c4cc', borderRadius: 10, borderLeft: '4px solid var(--bordeaux)' }}>
-                                        <span style={{ fontSize: '1.5rem' }}>{d.icon}</span>
+                                        <div style={{ display: 'flex', color: 'var(--bordeaux)' }}><d.icon size={26} /></div>
                                         <span style={{ fontWeight: 500, color: 'var(--bordeaux)' }}>{d.titre}</span>
                                     </div>
                                 ))}
@@ -433,13 +444,15 @@ export default function DepartementDLSI() {
                             </p>
                             <div style={{ display: 'grid', gap: '1.25rem' }}>
                                 {[
-                                    { titre: '📋 Processus d\'admission', contenu: 'Dépôt du dossier au service de scolarité, transmission aux comités de programmes, évaluation selon les critères d\'admission, proclamation des résultats.' },
-                                    { titre: '✅ Conditions d\'admission', contenu: 'Baccalauréat complet ou diplôme équivalent. Bonne maîtrise du français. Répondre aux conditions spécifiques de l\'institution.' },
-                                    { titre: '📌 Types de décisions', contenu: 'Admission définitive, Admission conditionnelle, ou Rejet. Valable uniquement pour le programme et la période concernés.' },
-                                    { titre: '📝 Inscription', contenu: 'Inscription obligatoire en début d\'année universitaire. Temps plein : 30 crédits/semestre. Maximum autorisé : 42 crédits/semestre.' },
+                                    { titre: 'Processus d\'admission', icon: ClipboardList, contenu: 'Dépôt du dossier au service de scolarité, transmission aux comités de programmes, évaluation selon les critères d\'admission, proclamation des résultats.' },
+                                    { titre: 'Conditions d\'admission', icon: CheckCircle, contenu: 'Baccalauréat complet ou diplôme équivalent. Bonne maîtrise du français. Répondre aux conditions spécifiques de l\'institution.' },
+                                    { titre: 'Types de décisions', icon: MapPin, contenu: 'Admission définitive, Admission conditionnelle, ou Rejet. Valable uniquement pour le programme et la période concernés.' },
+                                    { titre: 'Inscription', icon: FileText, contenu: 'Inscription obligatoire en début d\'année universitaire. Temps plein : 30 crédits/semestre. Maximum autorisé : 42 crédits/semestre.' },
                                 ].map(a => (
                                     <div key={a.titre} className="card" style={{ borderLeft: '5px solid var(--bordeaux)' }}>
-                                        <div style={{ fontWeight: 700, color: 'var(--bordeaux)', marginBottom: '0.6rem' }}>{a.titre}</div>
+                                        <div style={{ fontWeight: 700, color: 'var(--bordeaux)', marginBottom: '0.6rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                            <a.icon size={18} /> {a.titre}
+                                        </div>
                                         <p style={{ color: 'var(--gris)', fontSize: '0.92rem', lineHeight: 1.8 }}>{a.contenu}</p>
                                     </div>
                                 ))}
@@ -455,12 +468,12 @@ export default function DepartementDLSI() {
                             </p>
                             <div className="grid-3">
                                 {[
-                                    { titre: 'Licence DLSI', duree: '3 ans — 6 semestres — 180 crédits', icon: '🎓', couleur: 'var(--bordeaux)' },
-                                    { titre: 'Master Cybersécurité', duree: '2 ans — Spécialisation sécurité avancée', icon: '🔐', couleur: '#5a3a8a' },
-                                    { titre: 'Doctorat', duree: 'Informatique & Sécurité des Systèmes', icon: '🏛️', couleur: '#856404' },
+                                    { titre: 'Licence DLSI', duree: '3 ans — 6 semestres — 180 crédits', icon: GraduationCap, couleur: 'var(--bordeaux)' },
+                                    { titre: 'Master Cybersécurité', duree: '2 ans — Spécialisation sécurité avancée', icon: ShieldCheck, couleur: '#5a3a8a' },
+                                    { titre: 'Doctorat', duree: 'Informatique & Sécurité des Systèmes', icon: Landmark, couleur: '#856404' },
                                 ].map(p => (
                                     <div key={p.titre} className="card" style={{ textAlign: 'center', borderTop: `4px solid ${p.couleur}` }}>
-                                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{p.icon}</div>
+                                        <div style={{ display: 'flex', justifyContent: 'center', color: p.couleur, marginBottom: '1rem' }}><p.icon size={44} strokeWidth={1.5} /></div>
                                         <h3 style={{ color: p.couleur, fontSize: '1.1rem', marginBottom: '0.6rem' }}>{p.titre}</h3>
                                         <p style={{ color: 'var(--gris)', fontSize: '0.88rem', lineHeight: 1.7 }}>{p.duree}</p>
                                     </div>
@@ -478,14 +491,14 @@ export default function DepartementDLSI() {
                             {semestres.map(niveau => (
                                 <div key={niveau.niveau} style={{ marginBottom: '3rem' }}>
                                     <div style={{ background: 'linear-gradient(135deg, var(--bordeaux), #9b2235)', color: '#fff', borderRadius: 10, padding: '0.85rem 1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                        <span style={{ fontSize: '1.4rem' }}>🎓</span>
+                                        <GraduationCap size={24} />
                                         <span style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', fontWeight: 700 }}>{niveau.niveau}</span>
                                     </div>
                                     {niveau.semestres.map(sem => (
                                         <div key={sem.num} style={{ marginBottom: '2rem' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-                                                <div style={{ background: 'var(--bordeaux-pale)', color: 'var(--bordeaux)', borderRadius: 8, padding: '0.5rem 1.25rem', fontWeight: 700, fontSize: '0.92rem', border: '1px solid #f0c4cc', display: 'inline-block' }}>
-                                                    📅 {sem.num}
+                                                <div style={{ background: 'var(--bordeaux-pale)', color: 'var(--bordeaux)', borderRadius: 8, padding: '0.5rem 1.25rem', fontWeight: 700, fontSize: '0.92rem', border: '1px solid #f0c4cc', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                                                    <Calendar size={16} /> {sem.num}
                                                 </div>
                                                 <span className="badge badge-bordeaux">{sem.credits} crédits</span>
                                             </div>
@@ -500,15 +513,17 @@ export default function DepartementDLSI() {
             </section>
 
             {/* CTA */}
-            <section style={{ background: 'var(--bordeaux)', color: '#fff', padding: '3.5rem 0', textAlign: 'center' }}>
-                <div className="container">
-                    <h2 style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontSize: '1.8rem', marginBottom: '0.75rem' }}>
+            <section style={{ background: 'linear-gradient(135deg, var(--bordeaux), #9b2235)', color: '#fff', padding: '5rem 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: -100, right: -100, width: 300, height: 300, background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)', zIndex: 0 }} />
+                <div style={{ position: 'absolute', bottom: -100, left: -100, width: 300, height: 300, background: 'radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 70%)', zIndex: 0 }} />
+                <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+                    <h2 style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2rem, 5vw, 2.8rem)', fontWeight: 700, marginBottom: '1.2rem' }}>
                         Intéressé par la filière DLSI ?
                     </h2>
-                    <p style={{ opacity: 0.85, marginBottom: '1.75rem', maxWidth: 480, margin: '0 auto 1.75rem' }}>
+                    <p style={{ opacity: 0.9, fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: 650, margin: '0 auto 2.5rem', lineHeight: 1.8 }}>
                         Rejoignez notre département et spécialisez-vous dans le développement logiciel sécurisé et la cybersécurité.
                     </p>
-                    <Link to="/contact" className="btn btn-gold" style={{ fontSize: '1rem', padding: '0.8rem 2rem' }}>
+                    <Link to="/contact" className="btn btn-gold" style={{ fontSize: '1.1rem', padding: '1.1rem 2.5rem', fontWeight: 600, borderRadius: 50, boxShadow: '0 8px 24px rgba(212,160,23,0.3)', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
                         S'inscrire au département →
                     </Link>
                 </div>

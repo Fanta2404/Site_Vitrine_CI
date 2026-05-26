@@ -1,30 +1,35 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import {
+    Network, Monitor, Lock, Laptop, Database, Globe, Wrench, Target,
+    ClipboardList, Rocket, CheckCircle, MapPin, FileText, GraduationCap,
+    BookOpen, Landmark, Layers, Calendar, TrendingUp, AlertTriangle
+} from 'lucide-react'
 
 const debouches = [
-    { titre: 'Administrateur réseaux', icon: '🖧' },
-    { titre: 'Ingénieur systèmes', icon: '🖥️' },
-    { titre: 'Ingénieur cybersécurité', icon: '🔐' },
-    { titre: 'Développeur d\'applications', icon: '💻' },
-    { titre: 'Concepteur de bases de données', icon: '🗄️' },
-    { titre: 'Webmaster', icon: '🌐' },
-    { titre: 'Gestionnaire de parc informatique', icon: '🔧' },
-    { titre: 'Consultant informatique', icon: '🎯' },
-    { titre: 'Chef de projet informatique', icon: '📋' },
-    { titre: 'Créateur d\'entreprise IT', icon: '🚀' },
+    { titre: 'Administrateur réseaux', icon: Network },
+    { titre: 'Ingénieur systèmes', icon: Monitor },
+    { titre: 'Ingénieur cybersécurité', icon: Lock },
+    { titre: 'Développeur d\'applications', icon: Laptop },
+    { titre: 'Concepteur de bases de données', icon: Database },
+    { titre: 'Webmaster', icon: Globe },
+    { titre: 'Gestionnaire de parc informatique', icon: Wrench },
+    { titre: 'Consultant informatique', icon: Target },
+    { titre: 'Chef de projet informatique', icon: ClipboardList },
+    { titre: 'Créateur d\'entreprise IT', icon: Rocket },
 ]
 
 const admission = [
-    { titre: 'Processus d\'admission', icon: '📋', contenu: 'L\'admission suit les règles et critères établis par le règlement des études. Le dossier est déposé au service de scolarité, transmis aux comités de programmes, évalué selon les critères d\'admission, puis les résultats sont proclamés par le responsable du service.' },
-    { titre: 'Conditions d\'admission', icon: '✅', contenu: 'Être titulaire d\'un baccalauréat complet ou d\'un diplôme équivalent. Répondre aux conditions de l\'institution. Avoir une bonne maîtrise du français, avec des exigences pédagogiques possibles pour certains programmes.' },
-    { titre: 'Types de décisions', icon: '📌', contenu: 'Les décisions incluent : Admission définitive, Admission conditionnelle, ou Rejet. Chaque décision est valable uniquement pour le programme et la période concernés.' },
-    { titre: 'Inscription', icon: '📝', contenu: 'Chaque étudiant admis doit s\'inscrire en début d\'année universitaire. Temps plein : 30 crédits/semestre. Temps partiel : moins de 30 crédits. Maximum autorisé : 42 crédits/semestre.' },
+    { titre: 'Processus d\'admission', icon: ClipboardList, contenu: 'L\'admission suit les règles et critères établis par le règlement des études. Le dossier est déposé au service de scolarité, transmis aux comités de programmes, évalué selon les critères d\'admission, puis les résultats sont proclamés par le responsable du service.' },
+    { titre: 'Conditions d\'admission', icon: CheckCircle, contenu: 'Être titulaire d\'un baccalauréat complet ou d\'un diplôme équivalent. Répondre aux conditions de l\'institution. Avoir une bonne maîtrise du français, avec des exigences pédagogiques possibles pour certains programmes.' },
+    { titre: 'Types de décisions', icon: MapPin, contenu: 'Les décisions incluent : Admission définitive, Admission conditionnelle, ou Rejet. Chaque décision est valable uniquement pour le programme et la période concernés.' },
+    { titre: 'Inscription', icon: FileText, contenu: 'Chaque étudiant admis doit s\'inscrire en début d\'année universitaire. Temps plein : 30 crédits/semestre. Temps partiel : moins de 30 crédits. Maximum autorisé : 42 crédits/semestre.' },
 ]
 
 const programmes = [
-    { titre: 'Licence NTIC', duree: '3 ans — 6 semestres — 180 crédits', couleur: 'var(--bleu)', icon: '🎓' },
-    { titre: 'Master Informatique', duree: '2 ans — 4 semestres', couleur: '#5a3a8a', icon: '📚' },
-    { titre: 'Doctorat', duree: 'Maths, Physique, Télécommunication & Informatique', couleur: '#856404', icon: '🏛️' },
+    { titre: 'Licence NTIC', duree: '3 ans — 6 semestres — 180 crédits', couleur: 'var(--bleu)', icon: GraduationCap },
+    { titre: 'Master Informatique', duree: '2 ans — 4 semestres', couleur: '#5a3a8a', icon: BookOpen },
+    { titre: 'Doctorat', duree: 'Maths, Physique, Télécommunication & Informatique', couleur: '#856404', icon: Landmark },
 ]
 
 const structure = {
@@ -295,13 +300,13 @@ const semestres = [
 ]
 
 const sections = [
-    { id: 'debouches', label: 'Nos Débouchés', icon: '🖧' },
-    { id: 'admission', label: 'Admission & Inscription', icon: '🎯' },
-    { id: 'programmes', label: 'Programmes Offerts', icon: '🎓' },
-    { id: 'structure', label: 'Structure de la Formation', icon: '📐' },
+    { id: 'debouches', label: 'Nos Débouchés', icon: Network },
+    { id: 'admission', label: 'Admission & Inscription', icon: Target },
+    { id: 'programmes', label: 'Programmes Offerts', icon: GraduationCap },
+    { id: 'structure', label: 'Structure de la Formation', icon: Layers },
 ]
 
-function CarteSection({ icon, label, onClick, actif }) {
+function CarteSection({ icon: Icon, label, onClick, actif }) {
     return (
         <div onClick={onClick} style={{
             background: actif ? 'var(--bleu-fonce)' : 'var(--bleu)',
@@ -312,7 +317,7 @@ function CarteSection({ icon, label, onClick, actif }) {
             transform: actif ? 'translateY(-4px)' : 'none',
             transition: 'all 0.2s'
         }}>
-            <div style={{ fontSize: '2.2rem', marginBottom: '0.6rem' }}>{icon}</div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.6rem' }}><Icon size={36} /></div>
             <div style={{ fontWeight: 600, fontSize: '0.9rem', lineHeight: 1.4 }}>{label}</div>
         </div>
     )
@@ -393,8 +398,14 @@ export default function DepartementNTIC() {
                         180 crédits — 6 semestres — Formations académique, professionnelle et recherche.
                     </p>
                     <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                        {[['🎓 Licence — 3 ans'], ['📚 Master — 2 ans'], ['🏛️ Doctorat']].map(([t]) => (
-                            <span key={t} style={{ background: 'rgba(255,255,255,0.12)', color: '#fff', padding: '0.35rem 0.9rem', borderRadius: 999, fontSize: '0.82rem' }}>{t}</span>
+                        {[
+                            { text: 'Licence — 3 ans', icon: GraduationCap },
+                            { text: 'Master — 2 ans', icon: BookOpen },
+                            { text: 'Doctorat', icon: Landmark }
+                        ].map(t => (
+                            <span key={t.text} style={{ background: 'rgba(255,255,255,0.12)', color: '#fff', padding: '0.35rem 0.9rem', borderRadius: 999, fontSize: '0.82rem', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                                <t.icon size={16} /> {t.text}
+                            </span>
                         ))}
                     </div>
                 </div>
@@ -443,13 +454,15 @@ export default function DepartementNTIC() {
                             <div className="grid-2" style={{ marginBottom: '2.5rem' }}>
                                 {debouches.map(d => (
                                     <div key={d.titre} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem 1.25rem', background: 'var(--bleu-pale)', border: '1px solid var(--border)', borderRadius: 10, borderLeft: '4px solid var(--bleu)' }}>
-                                        <span style={{ fontSize: '1.5rem' }}>{d.icon}</span>
+                                        <div style={{ display: 'flex', color: 'var(--bleu)' }}><d.icon size={26} /></div>
                                         <span style={{ fontWeight: 500, color: 'var(--bleu-fonce)' }}>{d.titre}</span>
                                     </div>
                                 ))}
                             </div>
                             <div style={{ background: '#e8f4ff', border: '1px solid var(--border)', borderRadius: 12, padding: '1.5rem' }}>
-                                <div style={{ fontWeight: 600, color: 'var(--bleu-fonce)', marginBottom: '0.5rem' }}>📈 Poursuites d'études</div>
+                                <div style={{ fontWeight: 600, color: 'var(--bleu-fonce)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                    <TrendingUp size={18} /> Poursuites d'études
+                                </div>
                                 <p style={{ color: 'var(--gris)', fontSize: '0.95rem', lineHeight: 1.8 }}>
                                     Cette formation offre la possibilité de poursuivre en <strong>Master en Informatique</strong> (4 semestres) puis en <strong>Doctorat</strong> en Maths, Physique, Télécommunication et Informatique.
                                 </p>
@@ -466,13 +479,17 @@ export default function DepartementNTIC() {
                             <div style={{ display: 'grid', gap: '1.25rem', marginBottom: '2.5rem' }}>
                                 {admission.map(a => (
                                     <div key={a.titre} className="card" style={{ borderLeft: '5px solid var(--bleu)' }}>
-                                        <div style={{ fontWeight: 700, color: 'var(--bleu-fonce)', marginBottom: '0.6rem' }}>{a.icon} {a.titre}</div>
+                                        <div style={{ fontWeight: 700, color: 'var(--bleu-fonce)', marginBottom: '0.6rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                            <a.icon size={18} /> {a.titre}
+                                        </div>
                                         <p style={{ color: 'var(--gris)', fontSize: '0.92rem', lineHeight: 1.8 }}>{a.contenu}</p>
                                     </div>
                                 ))}
                             </div>
                             <div style={{ background: 'var(--or-pale)', border: '1px solid #ffe082', borderRadius: 12, padding: '1.25rem' }}>
-                                <div style={{ fontWeight: 600, color: '#7a5a00', marginBottom: '0.4rem' }}>⚠️ Important</div>
+                                <div style={{ fontWeight: 600, color: '#7a5a00', marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                    <AlertTriangle size={18} /> Important
+                                </div>
                                 <p style={{ color: '#6d4c00', fontSize: '0.9rem', lineHeight: 1.8 }}>
                                     Maximum autorisé : <strong>42 crédits par semestre</strong>. Les périodes d'inscription sont définies par le calendrier universitaire.
                                 </p>
@@ -489,7 +506,7 @@ export default function DepartementNTIC() {
                             <div className="grid-3">
                                 {programmes.map(p => (
                                     <div key={p.titre} className="card" style={{ textAlign: 'center', borderTop: `4px solid ${p.couleur}` }}>
-                                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{p.icon}</div>
+                                        <div style={{ display: 'flex', justifyContent: 'center', color: p.couleur, marginBottom: '1rem' }}><p.icon size={44} strokeWidth={1.5} /></div>
                                         <h3 style={{ color: p.couleur, fontSize: '1.1rem', marginBottom: '0.6rem' }}>{p.titre}</h3>
                                         <p style={{ color: 'var(--gris)', fontSize: '0.88rem', lineHeight: 1.7 }}>{p.duree}</p>
                                     </div>
@@ -507,14 +524,14 @@ export default function DepartementNTIC() {
                             {semestres.map(niveau => (
                                 <div key={niveau.niveau} style={{ marginBottom: '3rem' }}>
                                     <div style={{ background: 'linear-gradient(135deg, var(--bleu-fonce), var(--bleu))', color: '#fff', borderRadius: 10, padding: '0.85rem 1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                        <span style={{ fontSize: '1.4rem' }}>🎓</span>
+                                        <GraduationCap size={24} />
                                         <span style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', fontWeight: 700 }}>{niveau.niveau}</span>
                                     </div>
                                     {niveau.semestres.map(sem => (
                                         <div key={sem.num} style={{ marginBottom: '2rem' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-                                                <div style={{ background: 'var(--bleu-pale)', color: 'var(--bleu-fonce)', borderRadius: 8, padding: '0.5rem 1.25rem', fontWeight: 700, fontSize: '0.92rem', border: '1px solid var(--border)', display: 'inline-block' }}>
-                                                    📅 {sem.num}
+                                                <div style={{ background: 'var(--bleu-pale)', color: 'var(--bleu-fonce)', borderRadius: 8, padding: '0.5rem 1.25rem', fontWeight: 700, fontSize: '0.92rem', border: '1px solid var(--border)', display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                                                    <Calendar size={16} /> {sem.num}
                                                 </div>
                                                 <span className="badge badge-bleu">{sem.credits} crédits</span>
                                             </div>
@@ -530,15 +547,17 @@ export default function DepartementNTIC() {
             </section>
 
             {/* CTA */}
-            <section style={{ background: 'var(--bleu-fonce)', color: '#fff', padding: '3.5rem 0', textAlign: 'center' }}>
-                <div className="container">
-                    <h2 style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontSize: '1.8rem', marginBottom: '0.75rem' }}>
+            <section style={{ background: 'linear-gradient(135deg, var(--bleu-fonce), var(--bleu))', color: '#fff', padding: '5rem 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', top: -100, right: -100, width: 300, height: 300, background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)', zIndex: 0 }} />
+                <div style={{ position: 'absolute', bottom: -100, left: -100, width: 300, height: 300, background: 'radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 70%)', zIndex: 0 }} />
+                <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+                    <h2 style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2rem, 5vw, 2.8rem)', fontWeight: 700, marginBottom: '1.2rem' }}>
                         Intéressé par la filière NTIC ?
                     </h2>
-                    <p style={{ opacity: 0.85, marginBottom: '1.75rem', maxWidth: 480, margin: '0 auto 1.75rem' }}>
-                        Rejoignez notre département et construisez votre avenir dans les réseaux et technologies numériques.
+                    <p style={{ opacity: 0.9, fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: 650, margin: '0 auto 2.5rem', lineHeight: 1.8 }}>
+                        Rejoignez notre département et construisez votre avenir professionnel dans les réseaux, l'administration système et les technologies numériques.
                     </p>
-                    <Link to="/contact" className="btn btn-gold" style={{ fontSize: '1rem', padding: '0.8rem 2rem' }}>
+                    <Link to="/contact" className="btn btn-gold" style={{ fontSize: '1.1rem', padding: '1.1rem 2.5rem', fontWeight: 600, borderRadius: 50, boxShadow: '0 8px 24px rgba(212,160,23,0.3)', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
                         S'inscrire au département →
                     </Link>
                 </div>

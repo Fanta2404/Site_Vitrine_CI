@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { Laptop, Rocket, MapPin, Mail, Phone, Smartphone } from 'lucide-react'
 import logosCI from '../assets/logosCI.png'
 import logosUGANC from '../assets/logos_uganc.png'
 
@@ -7,7 +8,7 @@ export default function Footer() {
         <footer style={{
             background: 'var(--bleu-fonce)',
             color: '#fff',
-            padding: '3rem 0 1.5rem',
+            padding: '1rem 0 0.5rem',
             position: 'relative',
             overflow: 'hidden'
         }}>
@@ -23,29 +24,30 @@ export default function Footer() {
             }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-                <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
+                <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1rem' }}>
 
                     {/* Institutional Info */}
-                    <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.5rem' }}>
-                            <div style={{ padding: '0.4rem', background: '#fff', borderRadius: '10px', display: 'flex', gap: '0.5rem' }}>
-                                <img src={logosUGANC} alt="UGANC" style={{ height: 48, objectFit: 'contain' }} />
-                                <img src={logosCI} alt="CI" style={{ height: 44, objectFit: 'contain' }} />
+                    <div style={{ paddingRight: '1rem' }}>
+                        <div style={{ display: 'inline-block', marginBottom: '0.5rem' }}>
+                            <div style={{ padding: '0.3rem 0.6rem', background: '#fff', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '0.6rem', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
+                                <img src={logosUGANC} alt="UGANC" style={{ height: 34, width: 'auto', objectFit: 'contain' }} />
+                                <div style={{ height: 22, width: 2, background: 'var(--border)' }}></div>
+                                <img src={logosCI} alt="CI" style={{ height: 28, width: 'auto', objectFit: 'contain' }} />
                             </div>
                         </div>
-                        <h3 style={{ color: 'var(--white)', marginBottom: '0.75rem', fontSize: '1.2rem' }}>
+                        <h3 style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontSize: '1.2rem', fontWeight: 700, marginBottom: '0.5rem' }}>
                             Centre Informatique
                         </h3>
-                        <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', lineHeight: 1.8 }}>
+                        <p style={{ fontSize: '0.88rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.6 }}>
                             Une institution d'excellence pour la formation et la recherche technologique en Guinée.
                         </p>
                     </div>
 
                     {/* Quick Links */}
                     <div>
-                        <h4 style={{ color: 'var(--white)', fontWeight: 700, marginBottom: '1.5rem', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Structure</h4>
+                        <h4 style={{ color: 'var(--white)', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Structure</h4>
                         {[['/', 'Accueil'], ['/apropos', 'À propos'], ['/departements', 'Départements'], ['/enseignants', 'Enseignants']].map(([path, label]) => (
-                            <NavLink key={path} to={path} style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '0.92rem', marginBottom: '0.75rem', transition: 'color 0.2s' }}>
+                            <NavLink key={path} to={path} style={{ display: 'block', color: 'rgba(255,255,255,0.7)', fontSize: '0.85rem', marginBottom: '0.4rem', transition: 'color 0.2s' }}>
                                 {label}
                             </NavLink>
                         ))}
@@ -53,26 +55,26 @@ export default function Footer() {
 
                     {/* Disciplines */}
                     <div>
-                        <h4 style={{ color: 'var(--white)', fontWeight: 700, marginBottom: '1.5rem', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Filières</h4>
-                        <ul style={{ listStyle: 'none', color: 'rgba(255,255,255,0.7)', fontSize: '0.92rem' }}>
-                            <li style={{ marginBottom: '0.75rem' }}>💻 NTIC – Réseaux & Systèmes</li>
-                            <li>🚀 DL – Développement Logiciel</li>
+                        <h4 style={{ color: 'var(--white)', fontWeight: 700, marginBottom: '0.75rem', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Filières</h4>
+                        <ul style={{ listStyle: 'none', color: 'rgba(255,255,255,0.7)', fontSize: '0.85rem' }}>
+                            <li style={{ marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Laptop size={14} /> NTIC – Réseaux & Systèmes</li>
+                            <li style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Rocket size={14} /> DL – Développement Logiciel</li>
                         </ul>
                     </div>
 
                     {/* Contact */}
                     <div>
-                        <h4 style={{ color: 'var(--white)', fontWeight: 700, marginBottom: '1.5rem', fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contact</h4>
-                        <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.92rem', lineHeight: 1.8 }}>
-                            <p>📍 Dixinn, Conakry 33139</p>
-                            <p>📧 direction@ci.edu.gn</p>
-                            <p>📞 +224 624 08 45 01</p>
-                            <p>📱 +224 657 99 43 57</p>
+                        <h4 style={{ color: 'var(--white)', fontWeight: 700, marginBottom: '0.5rem', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contact</h4>
+                        <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.85rem', lineHeight: 1.5 }}>
+                            <p style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.3rem' }}><MapPin size={14} /> Dixinn, Conakry 33139</p>
+                            <p style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.3rem' }}><Mail size={14} /> direction@ci.edu.gn</p>
+                            <p style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.3rem' }}><Phone size={14} /> +224 624 08 45 01</p>
+                            <p style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Smartphone size={14} /> +224 657 99 43 57</p>
                         </div>
                     </div>
                 </div>
 
-                <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem', textAlign: 'center', fontSize: '0.85rem', color: 'rgba(255,255,255,0.5)' }}>
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '0.75rem', textAlign: 'center', fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)' }}>
                     © 2026 Centre Informatique UGANC. Propulsé par l'Excellence Numérique.
                 </div>
             </div>

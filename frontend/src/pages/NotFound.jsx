@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Search } from 'lucide-react'
 
 export default function NotFound() {
     return (
@@ -14,7 +15,7 @@ export default function NotFound() {
                     marginBottom: '1rem', opacity: 0.15
                 }}>404</div>
                 <div style={{ marginTop: '-4rem' }}>
-                    <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🔍</div>
+                    <div style={{ display: 'flex', justifyContent: 'center', color: 'var(--vert)', marginBottom: '1rem' }}><Search size={56} /></div>
                     <h1 style={{ fontSize: '1.8rem', marginBottom: '0.75rem' }}>Page introuvable</h1>
                     <p style={{ color: 'var(--gris)', maxWidth: 420, margin: '0 auto 2rem', lineHeight: 1.8 }}>
                         La page que vous cherchez n'existe pas ou a été déplacée.

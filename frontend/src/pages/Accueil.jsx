@@ -1,41 +1,83 @@
 import { Link } from 'react-router-dom'
 import useScrollAnimation from '../hooks/useScrollAnimation'
+import {
+    GraduationCap, Users, BookOpen, Landmark, Wrench, Laptop, Handshake,
+    Network, Lock, ClipboardList, Target, Cloud, Signal, Radio, Smartphone,
+    MapPin, Mail, Phone, Clock,
+} from 'lucide-react'
+
+import logoMesrsi from '../assets/logo_MESRSI.png';
+import logoUganc from '../assets/logos_uganc.png';
+import logoSimandou from '../assets/partenaires/simandou.png';
+import logoAnsuten from '../assets/partenaires/ansuten.png';
+import logoOdc from '../assets/partenaires/odc.png';
+import logoHuawei from '../assets/partenaires/houawei.png';
+import logoMtn from '../assets/partenaires/MTN.png';
+import bgUganc from '../assets/uganc_building.png';
+import imgNtic from '../assets/NTIC.png';
+import imgDl from '../assets/DL.png';
+import imgGlobe from '../assets/network_globe.png';
+
+// Custom SVG social icons (lucide-react doesn't include brand icons)
+const FacebookIcon = ({ size = 18 }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+)
+const LinkedinIcon = ({ size = 18 }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" />
+    </svg>
+)
+const YoutubeIcon = ({ size = 18 }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" /><path d="m10 15 5-3-5-3z" />
+    </svg>
+)
+const InstagramIcon = ({ size = 18 }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+)
 
 const stats = [
-    { val: '500+', label: 'Étudiants formés', icon: '🎓' },
-    { val: '20+', label: 'Enseignants experts', icon: '👨‍🏫' }, // Fixed typo in user prompt: 👨🏫 -> 👨‍🏫
-    { val: '2', label: 'Filières spécialisées', icon: '📚' },
-    { val: '10+', label: 'Années d\'expérience', icon: '🏛️' },
+    { val: '500+', label: 'Étudiants formés', icon: GraduationCap },
+    { val: '20+', label: 'Enseignants experts', icon: Users },
+    { val: '2', label: 'Filières spécialisées', icon: BookOpen },
+    { val: '10+', label: 'Années d\'expérience', icon: Landmark },
 ]
 
 const atouts = [
-    { titre: 'Formation pratique', desc: 'Des TP et projets concrets dès la première année pour développer des compétences réelles.', icon: '🛠️' },
-    { titre: 'Enseignants experts', desc: 'Des professionnels et académiciens passionnés, formés dans les meilleures universités.', icon: '👨‍🏫' },
-    { titre: 'Deux filières solides', desc: 'NTIC et Développement Logiciel pour des débouchés variés dans le numérique.', icon: '💻' },
-    { titre: 'Réseau professionnel', desc: 'Partenariats avec des entreprises comme Orange, Huawei et MTN Guinée.', icon: '🤝' },
+    { titre: 'Formation pratique', desc: 'Des TP et projets concrets dès la première année pour développer des compétences réelles.', icon: Wrench },
+    { titre: 'Enseignants experts', desc: 'Des professionnels et académiciens passionnés, formés dans les meilleures universités.', icon: Users },
+    { titre: 'Deux filières solides', desc: 'NTIC et Développement Logiciel pour des débouchés variés dans le numérique.', icon: Laptop },
+    { titre: 'Réseau professionnel', desc: 'Partenariats avec des entreprises comme Orange, Huawei et MTN Guinée.', icon: Handshake },
 ]
 
 const debouches = [
-    { titre: 'Administrateur réseaux', icon: '🖧' },
-    { titre: 'Développeur fullstack', icon: '💻' },
-    { titre: 'Ingénieur cybersécurité', icon: '🔐' },
-    { titre: 'Chef de projet IT', icon: '📋' },
-    { titre: 'Consultant informatique', icon: '🎯' },
-    { titre: 'Ingénieur cloud', icon: '☁️' },
+    { titre: 'Administrateur réseaux', icon: Network },
+    { titre: 'Développeur fullstack', icon: Laptop },
+    { titre: 'Ingénieur cybersécurité', icon: Lock },
+    { titre: 'Chef de projet IT', icon: ClipboardList },
+    { titre: 'Consultant informatique', icon: Target },
+    { titre: 'Ingénieur cloud', icon: Cloud },
 ]
 
 const actualites = [
-    { titre: 'Journée portes ouvertes 2026', date: '15 mars 2026', cat: 'Événement', couleur: '#0e4a91' },
-    { titre: 'Atelier Cybersécurité avec Orange Guinée', date: '02 mars 2026', cat: 'Atelier', couleur: '#d4a017' },
-    { titre: 'Résultats concours de programmation', date: '20 fév. 2026', cat: 'Résultats', couleur: '#7a1a2e' },
+    { titre: 'UGANC Championne d\'Afrique au ODC Champion', date: 'Avril 2026', cat: 'Événement', couleur: '#d4a017', icon: '🏆' },
+    { titre: 'Séminaire Robotique — Experts ODC', date: 'Mars 2026', cat: 'Séminaire', couleur: '#1a6bc8', icon: '🤖' },
+    { titre: 'Compétition Sportive Inter-Licence 2023', date: '2023', cat: 'Inter-Licence', couleur: '#006633', icon: '⚽' },
+    { titre: 'Séminaire FinTech — Innovation Financière', date: 'Mars 2026', cat: 'Séminaire', couleur: '#856404', icon: '💳' },
 ]
 
 const partenaires = [
-    { nom: 'Orange Guinée', icon: '🟠' },
-    { nom: 'Huawei', icon: '📡' },
-    { nom: 'MTN Guinée', icon: '🟡' },
-    { nom: 'Ministère ESRI', icon: '🏛️' },
-    { nom: 'UGANC', icon: '🎓' },
+    { nom: 'Orange Digital Center', img: logoOdc },
+    { nom: 'Huawei', img: logoHuawei },
+    { nom: 'MTN Guinée', img: logoMtn },
+    { nom: 'SIMANDOU 2040', img: logoSimandou },
+    { nom: 'ANSUTEN', img: logoAnsuten },
+    { nom: 'Ministère ESRI', img: logoMesrsi },
+    { nom: 'UGANC', img: logoUganc },
 ]
 
 const temoignages = [
@@ -51,10 +93,10 @@ const galerieRapide = [
 ]
 
 const reseaux = [
-    { nom: 'Facebook', icon: '📘', lien: '#' },
-    { nom: 'LinkedIn', icon: '💼', lien: '#' },
-    { nom: 'YouTube', icon: '▶️', lien: '#' },
-    { nom: 'Instagram', icon: '📸', lien: '#' },
+    { nom: 'Facebook', icon: FacebookIcon, lien: '#' },
+    { nom: 'LinkedIn', icon: LinkedinIcon, lien: '#' },
+    { nom: 'YouTube', icon: YoutubeIcon, lien: '#' },
+    { nom: 'Instagram', icon: InstagramIcon, lien: '#' },
 ]
 
 export default function Accueil() {
@@ -65,22 +107,22 @@ export default function Accueil() {
             {/* ── 1. HERO ── */}
             <section style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
                 <img
-                    src="https://images.unsplash.com/photo-1562774053-701939374585?w=1600&q=80"
-                    alt="Campus UGANC"
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.3)' }}
+                    src={bgUganc}
+                    alt="Bâtiment UGANC Temple du Savoir"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.7)' }}
                 />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(14,74,145,0.92) 0%, rgba(26,107,200,0.75) 100%)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(14,74,145,0.75) 0%, rgba(26,107,200,0.55) 100%)' }} />
                 <div style={{ position: 'absolute', top: -100, right: -100, width: 500, height: 500, background: 'rgba(212,160,23,0.08)', borderRadius: '50%' }} />
 
                 <div className="container" style={{ position: 'relative', zIndex: 1, padding: '5rem 1.5rem' }}>
-                    <span style={{ background: 'rgba(212,160,23,0.2)', color: '#f0c040', padding: '0.3rem 1rem', borderRadius: 999, fontSize: '0.82rem', fontWeight: 600, display: 'inline-block', marginBottom: '1.5rem' }}>
+                    <span style={{ background: 'rgba(212,160,23,0.3)', color: '#f0c040', padding: '0.3rem 1rem', borderRadius: 999, fontSize: '0.82rem', fontWeight: 600, display: 'inline-block', marginBottom: '1.5rem', backdropFilter: 'blur(4px)' }}>
                         Université Gamal Abdel Nasser de Conakry
                     </span>
-                    <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.2rem, 6vw, 4rem)', color: '#fff', lineHeight: 1.2, maxWidth: 720, marginBottom: '1.25rem' }}>
+                    <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.2rem, 6vw, 4rem)', color: '#fff', lineHeight: 1.2, maxWidth: 720, marginBottom: '1.25rem', textShadow: '0 4px 15px rgba(0,0,0,0.6)' }}>
                         Propulsez votre avenir<br />
                         <span style={{ color: '#f0c040' }}>numérique</span> avec nous
                     </h1>
-                    <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.88)', maxWidth: 560, marginBottom: '2.5rem', lineHeight: 1.85 }}>
+                    <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.95)', maxWidth: 560, marginBottom: '2.5rem', lineHeight: 1.85, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
                         Le Centre Informatique de l'UGANC forme les ingénieurs et techniciens du numérique de demain.
                         Rejoignez nos filières <strong style={{ color: '#fff' }}>NTIC</strong> et <strong style={{ color: '#fff' }}>Développement Logiciel</strong>.
                     </p>
@@ -104,7 +146,7 @@ export default function Accueil() {
                     <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', textAlign: 'center' }}>
                         {stats.map(s => (
                             <div key={s.label} style={{ padding: '1rem' }}>
-                                <div style={{ fontSize: '1.6rem', marginBottom: '0.3rem' }}>{s.icon}</div>
+                                <div style={{ marginBottom: '0.5rem', display: 'flex', justifyContent: 'center', color: 'var(--or)' }}><s.icon size={36} /></div>
                                 <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--bleu)', fontFamily: 'Playfair Display, serif' }}>{s.val}</div>
                                 <div style={{ fontSize: '0.82rem', color: 'var(--gris)', marginTop: '0.2rem' }}>{s.label}</div>
                             </div>
@@ -133,7 +175,7 @@ export default function Accueil() {
                         </div>
                         <div style={{ borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: 'var(--shadow)' }}>
                             <img
-                                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80"
+                                src={imgGlobe}
                                 alt="Étudiants en informatique"
                                 style={{ width: '100%', height: 380, objectFit: 'cover', display: 'block' }}
                             />
@@ -152,7 +194,7 @@ export default function Accueil() {
                     <div className="grid-2">
                         {atouts.map(a => (
                             <div key={a.titre} className="card" style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-                                <div style={{ fontSize: '2rem', flexShrink: 0, background: 'var(--vert-pale)', padding: '0.6rem', borderRadius: 10 }}>{a.icon}</div>
+                                <div style={{ flexShrink: 0, background: 'var(--vert-pale)', color: 'var(--vert)', padding: '0.6rem', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><a.icon size={28} /></div>
                                 <div>
                                     <h3 style={{ fontSize: '1.05rem', marginBottom: '0.4rem' }}>{a.titre}</h3>
                                     <p style={{ color: 'var(--gris)', fontSize: '0.9rem', lineHeight: 1.7 }}>{a.desc}</p>
@@ -174,7 +216,7 @@ export default function Accueil() {
                                 code: 'NTIC', couleur: 'var(--bleu)', bgCouleur: 'var(--bleu-pale)',
                                 nom: 'Nouvelles Technologies de l\'Information',
                                 desc: 'Réseaux, cybersécurité, systèmes, cloud computing et nouvelles technologies.',
-                                img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80',
+                                img: imgNtic,
                                 lien: '/departements/ntic',
                                 matieres: ['Réseaux informatiques', 'Cybersécurité', 'Cloud computing', 'Administration système'],
                             },
@@ -182,7 +224,7 @@ export default function Accueil() {
                                 code: 'DL', couleur: 'var(--bordeaux)', bgCouleur: 'var(--bordeaux-pale)',
                                 nom: 'Développement Logiciel',
                                 desc: 'Programmation, génie logiciel, bases de données et développement d\'applications.',
-                                img: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80',
+                                img: imgDl,
                                 lien: '/departements',
                                 matieres: ['Algorithmique', 'Développement web', 'Bases de données', 'Mobile Android'],
                             }
@@ -226,7 +268,7 @@ export default function Accueil() {
                                 onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.18)'}
                                 onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
                             >
-                                <div style={{ fontSize: '2rem', marginBottom: '0.6rem' }}>{d.icon}</div>
+                                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem', color: '#f0c040' }}><d.icon size={40} /></div>
                                 <div style={{ fontWeight: 600, fontSize: '0.95rem', color: '#fff' }}>{d.titre}</div>
                             </div>
                         ))}
@@ -252,12 +294,14 @@ export default function Accueil() {
                     <div style={{ display: 'grid', gap: '1rem' }}>
                         {actualites.map(a => (
                             <div key={a.titre} className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', borderLeft: `4px solid ${a.couleur}` }}>
-                                <div style={{ flexShrink: 0, width: 10, height: 10, borderRadius: '50%', background: a.couleur }} />
+                                <div style={{ fontSize: '1.8rem', flexShrink: 0 }}>{a.icon}</div>
                                 <div style={{ flex: 1 }}>
                                     <div style={{ fontWeight: 600, marginBottom: '0.2rem' }}>{a.titre}</div>
                                     <div style={{ color: 'var(--gris)', fontSize: '0.82rem' }}>{a.date}</div>
                                 </div>
-                                <span className="badge" style={{ background: a.couleur + '20', color: a.couleur, fontSize: '0.75rem', whiteSpace: 'nowrap' }}>{a.cat}</span>
+                                <span className="badge" style={{ background: a.couleur + '20', color: a.couleur, fontSize: '0.75rem', whiteSpace: 'nowrap' }}>
+                                    {a.cat}
+                                </span>
                             </div>
                         ))}
                     </div>
@@ -324,14 +368,13 @@ export default function Accueil() {
                         {partenaires.map(p => (
                             <div key={p.nom} style={{
                                 background: '#fff', borderRadius: 12,
-                                padding: '1rem 1.75rem',
-                                display: 'flex', alignItems: 'center', gap: '0.75rem',
+                                padding: '1rem 1.5rem',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 border: '1px solid var(--border)',
                                 boxShadow: 'var(--shadow)',
-                                fontSize: '0.95rem', fontWeight: 600, color: 'var(--texte)'
+                                height: 85, minWidth: 160
                             }}>
-                                <span style={{ fontSize: '1.5rem' }}>{p.icon}</span>
-                                {p.nom}
+                                <img src={p.img} alt={p.nom} title={p.nom} style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }} />
                             </div>
                         ))}
                     </div>
@@ -348,15 +391,15 @@ export default function Accueil() {
                             <p style={{ color: 'var(--gris)', lineHeight: 1.85, marginBottom: '1.5rem' }}>
                                 Le Centre Informatique est situé au sein du campus de l'Université Gamal Abdel Nasser de Conakry.
                             </p>
-                            <div style={{ display: 'grid', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                            <div style={{ display: 'grid', gap: '1rem', marginBottom: '1.5rem' }}>
                                 {[
-                                    { icon: '📍', txt: 'UGANC, Conakry, République de Guinée' },
-                                    { icon: '✉️', txt: 'centre-info@uganc.edu.gn' },
-                                    { icon: '📞', txt: '+224 000 000 000' },
-                                    { icon: '🕐', txt: 'Lundi – Vendredi : 08h00 – 17h00' },
+                                    { icon: MapPin, txt: 'UGANC, Conakry, République de Guinée' },
+                                    { icon: Mail, txt: 'centre-info@uganc.edu.gn' },
+                                    { icon: Phone, txt: '+224 000 000 000' },
+                                    { icon: Clock, txt: 'Lundi – Vendredi : 08h00 – 17h00' },
                                 ].map(c => (
                                     <div key={c.txt} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--gris)', fontSize: '0.9rem' }}>
-                                        <span style={{ fontSize: '1.1rem', width: 28, textAlign: 'center' }}>{c.icon}</span>
+                                        <div style={{ color: 'var(--bleu)', display: 'flex' }}><c.icon size={20} /></div>
                                         {c.txt}
                                     </div>
                                 ))}
@@ -382,13 +425,13 @@ export default function Accueil() {
             {/* ── 12. CTA FINAL + RÉSEAUX SOCIAUX ── */}
             <section className="fade-in" style={{ position: 'relative', overflow: 'hidden', padding: '5rem 0', color: '#fff' }}>
                 <img
-                    src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1600&q=80"
+                    src={bgUganc}
                     alt="Campus"
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.2)' }}
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.5)' }}
                 />
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(14,74,145,0.85)' }} />
+                <div style={{ position: 'absolute', inset: 0, background: 'rgba(14,74,145,0.65)' }} />
                 <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-                    <h2 style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontSize: '2rem', marginBottom: '0.75rem' }}>
+                    <h2 style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontSize: '2rem', marginBottom: '0.75rem', textShadow: '0 4px 10px rgba(0,0,0,0.5)' }}>
                         Rejoignez le Centre Informatique
                     </h2>
                     <p style={{ opacity: 0.85, marginBottom: '2rem', maxWidth: 500, margin: '0 auto 2rem' }}>
@@ -420,7 +463,7 @@ export default function Accueil() {
                                     onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.22)'}
                                     onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.12)'}
                                 >
-                                    <span>{r.icon}</span> {r.nom}
+                                    <r.icon size={18} /> {r.nom}
                                 </a>
                             ))}
                         </div>

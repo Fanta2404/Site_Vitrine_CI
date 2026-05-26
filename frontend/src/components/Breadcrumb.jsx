@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import { Home } from 'lucide-react'
 
 const noms = {
     '': 'Accueil',
@@ -25,7 +26,7 @@ export default function Breadcrumb() {
             padding: '0.6rem 0'
         }}>
             <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap', fontSize: '0.82rem', color: 'var(--gris)' }}>
-                <Link to="/" style={{ color: 'var(--vert)', fontWeight: 500, textDecoration: 'none' }}>🏠 Accueil</Link>
+                <Link to="/" style={{ color: 'var(--vert)', fontWeight: 500, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}><Home size={14} /> Accueil</Link>
                 {segments.map((seg, i) => {
                     const path = '/' + segments.slice(0, i + 1).join('/')
                     const estDernier = i === segments.length - 1
