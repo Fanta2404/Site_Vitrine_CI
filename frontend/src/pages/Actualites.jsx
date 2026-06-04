@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import api from '../api'
 import { Link } from 'react-router-dom'
 import {
     Calendar, MapPin, User, Camera,
@@ -339,9 +340,35 @@ export default function Actualites() {
     const [domaine, setDomaine] = useState('Tous')
     const [page, setPage] = useState(1)
     const [selected, setSelected] = useState(null)
+    const [actualitesAPI, setActualitesAPI] = useState([])
     const parPage = 6
 
-    const filtrees = actualites.filter(a => {
+    useEffect(() => {
+        api.get('api/actualites/')
+            .then(res => {
+                const apiData = res.data.map(item => ({
+                    id: 'api_' + item.id,
+                    titre: item.titre || 'Sans titre',
+                    date: item.date_publication ? new Date(item.date_publication).toLocaleDateString('fr-FR') : 'Non défini',
+                    categorie: 'Événement',
+                    domaine: 'Digital',
+                    img: item.image,
+                    galerie: [],
+                    resume: (item.contenu || '').substring(0, 110) + '...',
+                    contenu: item.contenu || '',
+                    lieu: 'Centre Informatique',
+                    intervenant: 'Direction',
+                    couleur: '#856404'
+                }))
+                setActualitesAPI([...apiData, ...actualites])
+            })
+            .catch(err => {
+                console.error("API error Actualites", err)
+                setActualitesAPI(actualites)
+            })
+    }, [])
+
+    const filtrees = actualitesAPI.filter(a => {
         const okCat = cat === 'Toutes' || a.categorie === cat
         const okDom = domaine === 'Tous' || a.domaine === domaine
         return okCat && okDom
@@ -510,7 +537,7 @@ export default function Actualites() {
                                         </div>
                                     ))}
                                 </div>
-                                <button onClick={() => setSelected(actualites.find(a => a.id === 6))} className="btn" style={{ background: '#fff', color: '#d4a017', fontWeight: 700, fontSize: '0.9rem' }}>
+                                <button onClick={() => setSelected(actualitesAPI.find(a => a.id === 6) || actualites[5])} className="btn" style={{ background: '#fff', color: '#d4a017', fontWeight: 700, fontSize: '0.9rem' }}>
                                     Lire l'article complet →
                                 </button>
                             </div>
@@ -532,7 +559,7 @@ export default function Actualites() {
                             </div>
                             <p style={{ color: 'var(--gris)', fontSize: '0.9rem' }}>Compétitions sportives entre les promotions du Centre Informatique</p>
                         </div>
-                        <div className="card" onClick={() => setSelected(actualites.find(a => a.id === 1))} style={{ cursor: 'pointer', display: 'flex', gap: '1.25rem', alignItems: 'center', borderLeft: '4px solid #006633' }}>
+                        <div className="card" onClick={() => setSelected(actualitesAPI.find(a => a.id === 1) || actualites[0])} style={{ cursor: 'pointer', display: 'flex', gap: '1.25rem', alignItems: 'center', borderLeft: '4px solid #006633' }}>
                             <div style={{ color: '#006633', flexShrink: 0 }}><Medal size={36} /></div>
                             <div style={{ flex: 1 }}>
                                 <div style={{ fontWeight: 600, fontSize: '1rem', marginBottom: '0.25rem' }}>Compétition Sportive Inter-Licence 2023</div>

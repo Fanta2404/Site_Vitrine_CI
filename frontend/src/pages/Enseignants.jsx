@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import api from '../api'
 import { Landmark, BookOpen, Library, Tags } from 'lucide-react'
 import imgManssare from '../assets/enseignants/M_manssare.jpeg'
 import imgKokouma from '../assets/enseignants/Dr_kokouma.png'
@@ -307,8 +308,39 @@ function Modal({ enseignant, onClose }) {
 export default function Enseignants() {
     const [filtre, setFiltre] = useState('Tous')
     const [selected, setSelected] = useState(null)
+    const [enseignantsAPI, setEnseignantsAPI] = useState([])
+    const [loading, setLoading] = useState(true)
 
-    const liste = enseignants.filter(e => {
+    useEffect(() => {
+        api.get('api/enseignants/')
+            .then(res => {
+                // Map API data to component structure
+                const apiData = res.data.map(item => ({
+                    id: item.id,
+                    nom: item.nom_prenom || 'Nom inconnu',
+                    titre: item.specialite || 'Enseignant',
+                    dept: item.departement || 'NTIC',
+                    grade: 'Monsieur', // Default fallback
+                    img: item.photo,
+                    initiales: item.nom_prenom ? item.nom_prenom.substring(0, 2).toUpperCase() : 'EN',
+                    cours: [],
+                    bio: 'Biographie non renseignée dans la base.',
+                    tags: [],
+                    couleur: 'var(--bleu)'
+                }))
+                // Fusionner avec les données statiques si besoin ou n'utiliser que l'API.
+                // On utilise les données Mock (enseignants) et on ajoute celles de l'API.
+                setEnseignantsAPI([...apiData, ...enseignants])
+                setLoading(false)
+            })
+            .catch(err => {
+                console.error("API Error", err)
+                setEnseignantsAPI(enseignants)
+                setLoading(false)
+            })
+    }, [])
+
+    const liste = enseignantsAPI.filter(e => {
         if (filtre === 'Tous') return true
         if (filtre === 'Docteur') return e.grade === 'Docteur'
         if (filtre === 'Monsieur') return e.grade === 'Monsieur'
@@ -369,7 +401,7 @@ export default function Enseignants() {
                                 fontSize: '0.85rem', padding: '0.4rem 1.1rem'
                             }}
                         >
-                            {f} {f === 'Tous' ? `(${enseignants.length})` : f === 'Docteur' ? `(${enseignants.filter(e => e.grade === 'Docteur').length})` : f === 'Monsieur' ? `(${enseignants.filter(e => e.grade === 'Monsieur').length})` : `(${enseignants.filter(e => e.titre.toLowerCase().includes('directeur') || e.titre.toLowerCase().includes('chef')).length})`}
+                            {f} {f === 'Tous' ? `(${enseignantsAPI.length})` : f === 'Docteur' ? `(${enseignantsAPI.filter(e => e.grade === 'Docteur').length})` : f === 'Monsieur' ? `(${enseignantsAPI.filter(e => e.grade === 'Monsieur').length})` : `(${enseignantsAPI.filter(e => e.titre.toLowerCase().includes('directeur') || e.titre.toLowerCase().includes('chef')).length})`}
                         </button>
                     ))}
                 </div>

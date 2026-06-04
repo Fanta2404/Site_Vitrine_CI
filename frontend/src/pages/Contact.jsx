@@ -1,6 +1,25 @@
 import { MapPin, Mail, Phone } from 'lucide-react'
+import { useState } from 'react'
+import api from '../api'
 
 export default function Contact() {
+    const [formData, setFormData] = useState({ nom: '', email: '', sujet: '', message: '' })
+    const [status, setStatus] = useState(null)
+
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            await api.post('api/contact/', formData)
+            setStatus('success')
+            setFormData({ nom: '', email: '', sujet: '', message: '' })
+        } catch (error) {
+            console.error("Erreur lors de l'envoi:", error)
+            setStatus('error')
+        }
+    }
+
     return (
         <>
             <section style={{ height: 320, display: 'flex', alignItems: 'center', background: 'var(--bleu-fonce)' }}>
@@ -46,26 +65,36 @@ export default function Contact() {
                         </div>
 
                         <div className="card" style={{ padding: '3rem' }}>
-                            <form style={{ display: 'grid', gap: '1.5rem' }}>
+                            <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
+                                {status === 'success' && (
+                                    <div style={{ padding: '1rem', background: '#d1fae5', color: '#065f46', borderRadius: '8px', fontSize: '0.9rem' }}>
+                                        Votre message a bien été envoyé ! Un e-mail de confirmation vous a été envoyé.
+                                    </div>
+                                )}
+                                {status === 'error' && (
+                                    <div style={{ padding: '1rem', background: '#fee2e2', color: '#991b1b', borderRadius: '8px', fontSize: '0.9rem' }}>
+                                        Une erreur est survenue lors de l'envoi. Veuillez réessayer plus tard.
+                                    </div>
+                                )}
                                 <div className="form-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                         <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--bleu-fonce)' }}>Nom Complet</label>
-                                        <input type="text" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)' }} />
+                                        <input type="text" name="nom" required value={formData.nom} onChange={handleChange} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)' }} />
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                         <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--bleu-fonce)' }}>Email</label>
-                                        <input type="email" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)' }} />
+                                        <input type="email" name="email" required value={formData.email} onChange={handleChange} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)' }} />
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                     <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--bleu-fonce)' }}>Sujet</label>
-                                    <input type="text" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)' }} />
+                                    <input type="text" name="sujet" required value={formData.sujet} onChange={handleChange} style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)' }} />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                     <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--bleu-fonce)' }}>Message</label>
-                                    <textarea rows="5" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)', resize: 'none' }}></textarea>
+                                    <textarea name="message" required value={formData.message} onChange={handleChange} rows="5" style={{ padding: '1rem', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--bg-alt)', resize: 'none' }}></textarea>
                                 </div>
-                                <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                                <button type="submit" className="btn btn-primary" disabled={status === 'success'} style={{ width: '100%', padding: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
                                     Envoyer le message <Mail size={18} />
                                 </button>
                             </form>
