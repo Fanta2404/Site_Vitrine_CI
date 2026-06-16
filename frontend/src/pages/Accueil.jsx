@@ -15,7 +15,7 @@ import logoAnsuten from '../assets/partenaires/ansuten.png';
 import logoOdc from '../assets/partenaires/odc.png';
 import logoHuawei from '../assets/partenaires/houawei.png';
 import logoMtn from '../assets/partenaires/MTN.png';
-import bgUganc from '../assets/uganc_hd_hero.png';
+import bgUganc from '../assets/uganc.jpeg';
 import imgNtic from '../assets/NTIC.png';
 import imgDl from '../assets/DL.png';
 import imgGlobe from '../assets/network_globe.png';
@@ -176,7 +176,7 @@ export default function Accueil() {
                 <div style={{ height: '75vh', width: '100%', position: 'relative' }}>
                     <div style={{
                         position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-                        background: 'linear-gradient(to bottom, rgba(10, 37, 64, 0.7), rgba(8, 76, 148, 0.85))',
+                        background: 'rgba(0, 0, 0, 0.4)',
                         zIndex: 1
                     }}></div>
                     <img
@@ -187,8 +187,9 @@ export default function Accueil() {
 
                     <div className="container" style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
                         <h1 style={{ color: '#ffffff', fontSize: '3.5rem', fontWeight: 800, marginBottom: '1.5rem', textShadow: '0 4px 12px rgba(0,0,0,0.5)', fontFamily: 'Poppins, sans-serif' }}>L'Excellence Numérique au <br />Centre Informatique</h1>
-                        <p style={{ color: '#ffffff', fontSize: '1.25rem', maxWidth: '800px', margin: '0 auto 2.5rem', lineHeight: 1.6, textShadow: '0 2px 6px rgba(0,0,0,0.4)', opacity: 0.95 }}>
-                            Rejoignez l'élite technologique de Guinée à l'Université Gamal Abdel Nasser de Conakry. Formez-vous aux réseaux, au génie logiciel, et à la cybersécurité.
+                        <p style={{ color: '#ffffff', fontSize: '1.25rem', maxWidth: '900px', margin: '0 auto 2.5rem', lineHeight: 1.6, textShadow: '0 2px 6px rgba(0,0,0,0.4)', opacity: 0.95 }}>
+                            La gestion manuelle des attestations universitaires présente plusieurs limites, notamment les délais de traitement, les risques d’erreurs et les difficultés de vérification des documents. <br /><br />
+                            <strong>Comment automatiser la génération et la vérification des attestations universitaires afin de fournir un service rapide, fiable et sécurisé aux étudiants de l’UGANC ?</strong>
                         </p>
                         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
                             <Link to="/departements" className="btn btn-primary" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem', backgroundColor: '#0A66C2', border: 'none', boxShadow: '0 8px 24px rgba(10, 102, 194, 0.4)' }}>Découvrir nos filières</Link>
