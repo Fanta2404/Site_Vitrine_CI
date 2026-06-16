@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useScrollAnimation from '../hooks/useScrollAnimation'
+import api from '../api'
 import {
     GraduationCap, Users, BookOpen, Landmark, Wrench, Laptop, Handshake,
     Network, Lock, ClipboardList, Target, Cloud, Signal, Radio, Smartphone,
@@ -13,7 +15,7 @@ import logoAnsuten from '../assets/partenaires/ansuten.png';
 import logoOdc from '../assets/partenaires/odc.png';
 import logoHuawei from '../assets/partenaires/houawei.png';
 import logoMtn from '../assets/partenaires/MTN.png';
-import bgUganc from '../assets/uganc_building.png';
+import bgUganc from '../assets/uganc_hd_hero.png';
 import imgNtic from '../assets/NTIC.png';
 import imgDl from '../assets/DL.png';
 import imgGlobe from '../assets/network_globe.png';
@@ -40,45 +42,11 @@ const InstagramIcon = ({ size = 18 }) => (
     </svg>
 )
 
-const stats = [
-    { val: '500+', label: 'Étudiants formés', icon: GraduationCap },
-    { val: '20+', label: 'Enseignants experts', icon: Users },
-    { val: '2', label: 'Filières spécialisées', icon: BookOpen },
-    { val: '10+', label: 'Années d\'expérience', icon: Landmark },
-]
-
-const atouts = [
-    { titre: 'Formation pratique', desc: 'Des TP et projets concrets dès la première année pour développer des compétences réelles.', icon: Wrench },
-    { titre: 'Enseignants experts', desc: 'Des professionnels et académiciens passionnés, formés dans les meilleures universités.', icon: Users },
-    { titre: 'Deux filières solides', desc: 'NTIC et Développement Logiciel pour des débouchés variés dans le numérique.', icon: Laptop },
-    { titre: 'Réseau professionnel', desc: 'Partenariats avec des entreprises comme Orange, Huawei et MTN Guinée.', icon: Handshake },
-]
-
-const debouches = [
-    { titre: 'Administrateur réseaux', icon: Network },
-    { titre: 'Développeur fullstack', icon: Laptop },
-    { titre: 'Ingénieur cybersécurité', icon: Lock },
-    { titre: 'Chef de projet IT', icon: ClipboardList },
-    { titre: 'Consultant informatique', icon: Target },
-    { titre: 'Ingénieur cloud', icon: Cloud },
-]
-
-const actualites = [
-    { titre: 'UGANC Championne d\'Afrique au ODC Champion', date: 'Avril 2026', cat: 'Événement', couleur: '#d4a017', icon: '🏆' },
-    { titre: 'Séminaire Robotique — Experts ODC', date: 'Mars 2026', cat: 'Séminaire', couleur: '#1a6bc8', icon: '🤖' },
-    { titre: 'Compétition Sportive Inter-Licence 2023', date: '2023', cat: 'Inter-Licence', couleur: '#006633', icon: '⚽' },
-    { titre: 'Séminaire FinTech — Innovation Financière', date: 'Mars 2026', cat: 'Séminaire', couleur: '#856404', icon: '💳' },
-]
-
-const partenaires = [
-    { nom: 'Orange Digital Center', img: logoOdc },
-    { nom: 'Huawei', img: logoHuawei },
-    { nom: 'MTN Guinée', img: logoMtn },
-    { nom: 'SIMANDOU 2040', img: logoSimandou },
-    { nom: 'ANSUTEN', img: logoAnsuten },
-    { nom: 'Ministère ESRI', img: logoMesrsi },
-    { nom: 'UGANC', img: logoUganc },
-]
+const iconMap = {
+    GraduationCap, Users, BookOpen, Landmark, Wrench, Laptop, Handshake,
+    Network, Lock, ClipboardList, Target, Cloud, Signal, Radio, Smartphone,
+    MapPin, Mail, Phone, Clock
+}
 
 const temoignages = [
     { nom: 'Amadou Kouyaté', promo: 'NTIC 2024', texte: 'Le centre m\'a donné toutes les bases pour décrocher mon premier emploi en administration réseau.', initiales: 'AK' },
@@ -86,10 +54,13 @@ const temoignages = [
     { nom: 'Ousmane Diallo', promo: 'NTIC 2025', texte: 'Une formation sérieuse avec des enseignants disponibles et passionnés.', initiales: 'OD' },
 ]
 
-const galerieRapide = [
-    { img: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?w=600&q=80', titre: 'Salle informatique' },
-    { img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80', titre: 'Travaux pratiques' },
-    { img: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80', titre: 'Conférence IA' },
+const debouchesStatic = [
+    { titre: 'Administrateur réseaux', icon: Network },
+    { titre: 'Développeur fullstack', icon: Laptop },
+    { titre: 'Ingénieur cybersécurité', icon: Lock },
+    { titre: 'Chef de projet IT', icon: ClipboardList },
+    { titre: 'Consultant informatique', icon: Target },
+    { titre: 'Ingénieur cloud', icon: Cloud },
 ]
 
 const reseaux = [
@@ -99,43 +70,130 @@ const reseaux = [
     { nom: 'Instagram', icon: InstagramIcon, lien: '#' },
 ]
 
+const fallbackEnseignants = [
+    { id: 'f1', nom_prenom: 'Dr Ibrahima Kalil TOURE', grade: 'Docteur', specialite: 'Directeur Général du Centre Informatique / Maître-Assistant (CAMES)', couleur: 'var(--bleu)', initiales: 'IT', photo: null },
+    { id: 'f2', nom_prenom: 'Dr Mohamed Dinah BANGOURA', grade: 'Docteur', specialite: 'Enseignant Chercheur / Dir. Général Dpt. CAEO', couleur: '#0A66C2', initiales: 'MB', photo: null },
+    { id: 'f3', nom_prenom: 'M. Bakary MANSARE', grade: 'Ingénieur', specialite: 'Directeur de Programme NTIC / Consultant Biométrie', couleur: '#1a6bc8', initiales: 'BM', photo: null },
+    { id: 'f4', nom_prenom: 'Dr Amara CAMARA', grade: 'Docteur', specialite: 'Directeur Général du RISTEL / Expert Transformation Numérique', couleur: '#0e4a91', initiales: 'AC', photo: null }
+];
+
+const fallbackPartners = [
+    { nom: 'Simandou', img: logoSimandou },
+    { nom: 'Ansuten', img: logoAnsuten },
+    { nom: 'Orange Digital Center', img: logoOdc },
+    { nom: 'Huawei', img: logoHuawei },
+    { nom: 'MTN', img: logoMtn }
+];
+
+const fallbackGals = [
+    { titre: 'Campus', img: bgUganc },
+    { titre: 'Laboratoire NTIC', img: imgNtic },
+    { titre: 'Développement', img: imgDl }
+];
+
+const fallbackActus = [
+    { titre: 'Soutenance de la promotion 2026', date: 'Juillet 2026', cat: 'Académique', couleur: '#0e4a91', icon: '🎓' },
+    { titre: 'Lancement du nouveau laboratoire', date: 'Juin 2026', cat: 'Événement', couleur: '#0A66C2', icon: '🚀' },
+    { titre: 'Partenariat stratégique et innovation', date: 'Mai 2026', cat: 'Réseau', couleur: '#1a6bc8', icon: '🤝' },
+    { titre: 'Nouveau programme spécialisé', date: 'Avril 2026', cat: 'Formation', couleur: 'var(--bleu)', icon: '💻' }
+];
+
+const fallbackStats = [
+    { val: '2+', label: 'Départements', icon: Landmark },
+    { val: '20+', label: 'Enseignants-Chercheurs', icon: Users },
+    { val: '100+', label: 'Projets réalisés', icon: Laptop },
+    { val: '15+', label: 'Partenaires', icon: Handshake }
+];
+
+const fallbackAtouts = [
+    { titre: 'Pédagogie par projet', desc: 'Des projets concrets pour vous préparer au monde de l\'entreprise.', icon: Laptop },
+    { titre: 'Laboratoires connectés', desc: 'Des équipements de pointe pour les réseaux, IoT et développement.', icon: Wrench },
+    { titre: 'Partenariats institutionnels', desc: 'Des entreprises partenaires qui interviennent dans votre cursus.', icon: Handshake },
+    { titre: 'Corps professoral d\'élite', desc: 'Docteurs et ingénieurs passionnés par la transmission du savoir.', icon: GraduationCap }
+];
+
 export default function Accueil() {
     useScrollAnimation()
+
+    const [actus, setActus] = useState(fallbackActus);
+    const [gals, setGals] = useState(fallbackGals);
+    const [stats, setStats] = useState(fallbackStats);
+    const [atouts, setAtouts] = useState(fallbackAtouts);
+    const [partners, setPartners] = useState(fallbackPartners);
+    const [enseignantsAPI, setEnseignantsAPI] = useState(fallbackEnseignants);
+
+    useEffect(() => {
+        const API_BASE = 'http://127.0.0.1:8001';
+        api.get('api/actualites/').then(res => {
+            if (res.data && res.data.length > 0) setActus(res.data.slice(0, 4).map(a => ({
+                titre: a.titre,
+                date: new Date(a.date_publication).toLocaleDateString(),
+                cat: a.cat || 'Actualité', couleur: a.couleur || '#084C94', icon: a.icon || '📰'
+            })))
+        }).catch(err => console.error(err))
+
+        api.get('api/galerie/').then(res => {
+            if (res.data && res.data.length > 0) setGals(res.data.slice(0, 3).map(g => ({
+                img: g.image.startsWith('http') ? g.image : `${API_BASE}/media/${g.image}`,
+                titre: g.titre || 'Galerie'
+            })))
+        }).catch(err => console.error(err))
+
+        api.get('api/statistiques/').then(res => {
+            if (res.data && res.data.length > 0) setStats(res.data.map(s => ({
+                val: s.valeur, label: s.label, icon: iconMap[s.icon_name] || Lock
+            })))
+        }).catch(err => console.error(err))
+
+        api.get('api/atouts/').then(res => {
+            if (res.data && res.data.length > 0) setAtouts(res.data.map(a => ({
+                titre: a.titre, desc: a.description, icon: iconMap[a.icon_name] || Lock
+            })))
+        }).catch(err => console.error(err))
+
+        api.get('api/partenaires/').then(res => {
+            if (res.data && res.data.length > 0) setPartners(res.data.map(p => ({
+                nom: p.nom, img: p.logo.startsWith('http') ? p.logo : `${API_BASE}/media/${p.logo}`
+            })))
+        }).catch(err => console.error(err))
+
+        api.get('api/enseignants/').then(res => {
+            if (res.data && res.data.length > 0) {
+                setEnseignantsAPI(res.data.slice(0, 4).map(e => ({
+                    id: e.id, nom_prenom: e.nom_prenom, grade: e.grade, specialite: e.specialite,
+                    photo: e.photo ? (e.photo.startsWith('http') || e.photo.startsWith('/src/') || e.photo.startsWith('data:') ? e.photo : `${API_BASE}/media/${e.photo}`) : null,
+                    couleur: e.couleur || 'var(--bleu)',
+                    initiales: e.nom_prenom ? e.nom_prenom.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase() : 'EN'
+                })))
+            }
+        }).catch(err => console.error(err))
+    }, []);
 
     return (
         <>
             {/* ── 1. HERO ── */}
-            <section style={{ position: 'relative', minHeight: '92vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-                <img
-                    src={bgUganc}
-                    alt="Bâtiment UGANC Temple du Savoir"
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.7)' }}
-                />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(14,74,145,0.75) 0%, rgba(26,107,200,0.55) 100%)' }} />
-                <div style={{ position: 'absolute', top: -100, right: -100, width: 500, height: 500, background: 'rgba(212,160,23,0.08)', borderRadius: '50%' }} />
+            <section style={{ position: 'relative', background: '#000' }}>
+                <div style={{ height: '75vh', width: '100%', position: 'relative' }}>
+                    <div style={{
+                        position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+                        background: 'linear-gradient(to bottom, rgba(10, 37, 64, 0.7), rgba(8, 76, 148, 0.85))',
+                        zIndex: 1
+                    }}></div>
+                    <img
+                        src={bgUganc}
+                        alt="Centre Informatique UGANC"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', zIndex: 0 }}
+                    />
 
-                <div className="container" style={{ position: 'relative', zIndex: 1, padding: '5rem 1.5rem' }}>
-                    <span style={{ background: 'rgba(212,160,23,0.3)', color: '#f0c040', padding: '0.3rem 1rem', borderRadius: 999, fontSize: '0.82rem', fontWeight: 600, display: 'inline-block', marginBottom: '1.5rem', backdropFilter: 'blur(4px)' }}>
-                        Université Gamal Abdel Nasser de Conakry
-                    </span>
-                    <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(2.2rem, 6vw, 4rem)', color: '#fff', lineHeight: 1.2, maxWidth: 720, marginBottom: '1.25rem', textShadow: '0 4px 15px rgba(0,0,0,0.6)' }}>
-                        Propulsez votre avenir<br />
-                        <span style={{ color: '#f0c040' }}>numérique</span> avec nous
-                    </h1>
-                    <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.95)', maxWidth: 560, marginBottom: '2.5rem', lineHeight: 1.85, textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>
-                        Le Centre Informatique de l'UGANC forme les ingénieurs et techniciens du numérique de demain.
-                        Rejoignez nos filières <strong style={{ color: '#fff' }}>NTIC</strong> et <strong style={{ color: '#fff' }}>Développement Logiciel</strong>.
-                    </p>
-                    <div className="hero-btns" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                        <Link to="/departements" className="btn btn-gold" style={{ fontSize: '1rem', padding: '0.85rem 2rem' }}>
-                            Découvrir les formations →
-                        </Link>
-                        <Link to="/actualites" className="btn" style={{ background: 'transparent', color: '#fff', border: '1.5px solid rgba(255,255,255,0.5)', fontSize: '1rem', padding: '0.85rem 2rem' }}>
-                            Voir les actualités
-                        </Link>
-                        <Link to="/contact" className="btn" style={{ background: 'transparent', color: '#f0c040', border: '1.5px solid rgba(212,160,23,0.5)', fontSize: '1rem', padding: '0.85rem 2rem' }}>
-                            Contacter le centre
-                        </Link>
+                    <div className="container" style={{ position: 'relative', zIndex: 2, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+                        <h1 style={{ color: '#ffffff', fontSize: '3.5rem', fontWeight: 800, marginBottom: '1.5rem', textShadow: '0 4px 12px rgba(0,0,0,0.5)', fontFamily: 'Poppins, sans-serif' }}>L'Excellence Numérique au <br />Centre Informatique</h1>
+                        <p style={{ color: '#ffffff', fontSize: '1.25rem', maxWidth: '800px', margin: '0 auto 2.5rem', lineHeight: 1.6, textShadow: '0 2px 6px rgba(0,0,0,0.4)', opacity: 0.95 }}>
+                            Rejoignez l'élite technologique de Guinée à l'Université Gamal Abdel Nasser de Conakry. Formez-vous aux réseaux, au génie logiciel, et à la cybersécurité.
+                        </p>
+                        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+                            <Link to="/departements" className="btn btn-primary" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem', backgroundColor: '#0A66C2', border: 'none', boxShadow: '0 8px 24px rgba(10, 102, 194, 0.4)' }}>Découvrir nos filières</Link>
+                            <Link to="/enseignants" className="btn btn-outline" style={{ padding: '0.8rem 2rem', fontSize: '1.1rem', color: '#fff', borderColor: '#fff' }}>Rencontrer l'équipe</Link>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -146,8 +204,8 @@ export default function Accueil() {
                     <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', textAlign: 'center' }}>
                         {stats.map(s => (
                             <div key={s.label} style={{ padding: '1rem' }}>
-                                <div style={{ marginBottom: '0.5rem', display: 'flex', justifyContent: 'center', color: 'var(--or)' }}><s.icon size={36} /></div>
-                                <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--bleu)', fontFamily: 'Playfair Display, serif' }}>{s.val}</div>
+                                <div style={{ marginBottom: '0.5rem', display: 'flex', justifyContent: 'center', color: 'var(--bleu)' }}><s.icon size={36} /></div>
+                                <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--bleu)', fontFamily: 'Poppins, sans-serif' }}>{s.val}</div>
                                 <div style={{ fontSize: '0.82rem', color: 'var(--gris)', marginTop: '0.2rem' }}>{s.label}</div>
                             </div>
                         ))}
@@ -169,7 +227,7 @@ export default function Accueil() {
                                 Rattaché à l'Université Gamal Abdel Nasser de Conakry, le centre prépare les étudiants aux défis technologiques du monde professionnel moderne à travers deux filières complémentaires.
                             </p>
                             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                                <Link to="/apropos" className="btn btn-primary">En savoir plus</Link>
+                                <Link to="/apropos" className="btn btn-orange">En savoir plus</Link>
                                 <Link to="/enseignants" className="btn btn-outline">Notre équipe →</Link>
                             </div>
                         </div>
@@ -194,7 +252,7 @@ export default function Accueil() {
                     <div className="grid-2">
                         {atouts.map(a => (
                             <div key={a.titre} className="card" style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
-                                <div style={{ flexShrink: 0, background: 'var(--vert-pale)', color: 'var(--vert)', padding: '0.6rem', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><a.icon size={28} /></div>
+                                <div style={{ flexShrink: 0, background: 'var(--bleu-pale)', color: 'var(--bleu)', padding: '0.6rem', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><a.icon size={28} /></div>
                                 <div>
                                     <h3 style={{ fontSize: '1.05rem', marginBottom: '0.4rem' }}>{a.titre}</h3>
                                     <p style={{ color: 'var(--gris)', fontSize: '0.9rem', lineHeight: 1.7 }}>{a.desc}</p>
@@ -221,7 +279,7 @@ export default function Accueil() {
                                 matieres: ['Réseaux informatiques', 'Cybersécurité', 'Cloud computing', 'Administration système'],
                             },
                             {
-                                code: 'DL', couleur: 'var(--bordeaux)', bgCouleur: 'var(--bordeaux-pale)',
+                                code: 'DL', couleur: 'var(--bleu-clair)', bgCouleur: 'var(--bleu-pale)',
                                 nom: 'Développement Logiciel',
                                 desc: 'Programmation, génie logiciel, bases de données et développement d\'applications.',
                                 img: imgDl,
@@ -249,34 +307,67 @@ export default function Accueil() {
             </section>
 
             {/* ── 6. DÉBOUCHÉS ── */}
-            <section className="section fade-in" style={{ background: 'var(--bleu-fonce)', color: '#fff' }}>
+            <section className="section fade-in" style={{ background: '#0A66C2', color: '#fff' }}>
                 <div className="container">
-                    <h2 style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontSize: '2rem', textAlign: 'center', marginBottom: '0.5rem' }}>
+                    <h2 style={{ color: '#fff', fontFamily: 'Poppins, sans-serif', fontSize: '2rem', textAlign: 'center', marginBottom: '0.5rem' }}>
                         Nos débouchés professionnels
                     </h2>
                     <p style={{ color: 'rgba(255,255,255,0.8)', textAlign: 'center', marginBottom: '2.5rem' }}>
                         Qu'est-ce qu'on devient après la formation ?
                     </p>
                     <div className="grid-3">
-                        {debouches.map(d => (
+                        {debouchesStatic.map(d => (
                             <div key={d.titre} style={{
-                                background: 'rgba(255,255,255,0.1)', borderRadius: 12,
+                                background: 'rgba(255,255,255,0.08)', borderRadius: 12,
                                 padding: '1.5rem', textAlign: 'center',
-                                border: '1px solid rgba(255,255,255,0.15)',
+                                border: '1px solid rgba(255,255,255,0.12)',
                                 transition: 'background 0.2s'
                             }}
-                                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.18)'}
-                                onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+                                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}
+                                onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
                             >
-                                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem', color: '#f0c040' }}><d.icon size={40} /></div>
+                                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.75rem', color: '#DFF3FF' }}><d.icon size={40} /></div>
                                 <div style={{ fontWeight: 600, fontSize: '0.95rem', color: '#fff' }}>{d.titre}</div>
                             </div>
                         ))}
                     </div>
                     <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-                        <Link to="/departements" className="btn btn-gold">
+                        <Link to="/departements" className="btn" style={{ background: '#fff', color: 'var(--bleu)', padding: '0.8rem 2rem', fontWeight: 600 }}>
                             Voir toutes les formations →
                         </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* ── 6.5 NOS ENSEIGNANTS ── */}
+            <section className="section fade-in" style={{ background: '#f8f9fc' }}>
+                <div className="container">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+                        <div>
+                            <h2 className="section-title" style={{ marginBottom: '0.25rem' }}>Nos enseignants</h2>
+                            <p style={{ color: 'var(--gris)', fontSize: '0.95rem' }}>Des docteurs, ingénieurs et experts passionnés qui forment les ingénieurs du numérique de demain.</p>
+                        </div>
+                        <Link to="/enseignants" className="btn btn-outline" style={{ fontSize: '0.88rem' }}>Voir toute l'équipe →</Link>
+                    </div>
+                    <div className="grid-4">
+                        {enseignantsAPI.map(e => (
+                            <div key={e.id} className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                                <div style={{ position: 'relative', height: 220, background: 'var(--gris-clair)' }}>
+                                    {e.photo ? (
+                                        <img src={e.photo} alt={e.nom_prenom} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+                                    ) : (
+                                        <div style={{ position: 'absolute', inset: 0, background: e.couleur, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '2.5rem' }}>
+                                            {e.initiales}
+                                        </div>
+                                    )}
+                                    <div style={{ position: 'absolute', top: 10, left: 10, background: e.grade === 'Docteur' ? 'rgba(14,74,145,0.9)' : 'rgba(122,26,46,0.9)', color: '#fff', padding: '0.2rem 0.65rem', borderRadius: 999, fontSize: '0.72rem', fontWeight: 600 }}>{e.grade || 'Enseignant'}</div>
+                                </div>
+                                <div style={{ padding: '1.1rem', borderTop: `3px solid ${e.couleur}` }}>
+                                    <h3 style={{ fontSize: '0.95rem', marginBottom: '0.25rem', lineHeight: 1.3, color: 'var(--texte)' }}>{e.nom_prenom}</h3>
+                                    <p style={{ color: e.couleur, fontSize: '0.78rem', fontWeight: 600, marginBottom: '0', lineHeight: 1.4 }}>{e.specialite}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
@@ -292,7 +383,7 @@ export default function Accueil() {
                         <Link to="/actualites" className="btn btn-outline" style={{ fontSize: '0.88rem' }}>Toutes les actualités →</Link>
                     </div>
                     <div style={{ display: 'grid', gap: '1rem' }}>
-                        {actualites.map(a => (
+                        {actus.map(a => (
                             <div key={a.titre} className="card" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', borderLeft: `4px solid ${a.couleur}` }}>
                                 <div style={{ fontSize: '1.8rem', flexShrink: 0 }}>{a.icon}</div>
                                 <div style={{ flex: 1 }}>
@@ -319,7 +410,7 @@ export default function Accueil() {
                         <Link to="/galerie" className="btn btn-outline" style={{ fontSize: '0.88rem' }}>Voir la galerie →</Link>
                     </div>
                     <div className="grid-3">
-                        {galerieRapide.map(g => (
+                        {gals.map(g => (
                             <div key={g.titre} style={{ borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: 'var(--shadow)', position: 'relative' }}>
                                 <img src={g.img} alt={g.titre} style={{ width: '100%', height: 220, objectFit: 'cover', display: 'block', transition: 'transform 0.3s' }}
                                     onMouseEnter={e => e.target.style.transform = 'scale(1.05)'}
@@ -327,7 +418,7 @@ export default function Accueil() {
                                 />
                                 <div style={{
                                     position: 'absolute', bottom: 0, left: 0, right: 0,
-                                    background: 'linear-gradient(to top, rgba(0,0,0,0.65), transparent)',
+                                    background: 'linear-gradient(to top, rgba(10,37,64,0.75), transparent)',
                                     padding: '1rem', color: '#fff', fontWeight: 600, fontSize: '0.9rem'
                                 }}>{g.titre}</div>
                             </div>
@@ -336,28 +427,7 @@ export default function Accueil() {
                 </div>
             </section>
 
-            {/* ── 9. TÉMOIGNAGES ── */}
-            <section className="section fade-in">
-                <div className="container">
-                    <h2 className="section-title" style={{ textAlign: 'center' }}>Ce que disent nos diplômés</h2>
-                    <p className="section-sub" style={{ textAlign: 'center' }}>Témoignages d'anciens étudiants</p>
-                    <div className="grid-3">
-                        {temoignages.map(t => (
-                            <div key={t.nom} className="card">
-                                <div style={{ color: 'var(--bleu)', fontSize: '2.5rem', lineHeight: 1, marginBottom: '0.75rem', fontFamily: 'Georgia, serif' }}>"</div>
-                                <p style={{ color: 'var(--gris)', fontSize: '0.92rem', lineHeight: 1.8, marginBottom: '1.25rem', fontStyle: 'italic' }}>{t.texte}</p>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                    <div style={{ width: 42, height: 42, borderRadius: '50%', background: 'var(--bleu)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Playfair Display, serif', fontWeight: 700, fontSize: '0.9rem', flexShrink: 0 }}>{t.initiales}</div>
-                                    <div>
-                                        <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{t.nom}</div>
-                                        <div style={{ color: 'var(--gris)', fontSize: '0.78rem' }}>Promo {t.promo}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+
 
             {/* ── 10. PARTENAIRES ── */}
             <section className="fade-in" style={{ background: 'var(--gris-clair)', padding: '3rem 0' }}>
@@ -365,7 +435,7 @@ export default function Accueil() {
                     <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '0.5rem' }}>Nos partenaires</h2>
                     <p className="section-sub" style={{ textAlign: 'center' }}>Ils nous font confiance</p>
                     <div className="partenaires-flex" style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '1.25rem' }}>
-                        {partenaires.map(p => (
+                        {partners.map(p => (
                             <div key={p.nom} style={{
                                 background: '#fff', borderRadius: 12,
                                 padding: '1rem 1.5rem',
@@ -404,7 +474,7 @@ export default function Accueil() {
                                     </div>
                                 ))}
                             </div>
-                            <Link to="/contact" className="btn btn-primary">Envoyer un message →</Link>
+                            <Link to="/contact" className="btn btn-orange">Envoyer un message →</Link>
                         </div>
                         {/* Carte Google Maps embed */}
                         <div style={{ borderRadius: 'var(--radius)', overflow: 'hidden', boxShadow: 'var(--shadow)', height: 320 }}>
@@ -427,18 +497,17 @@ export default function Accueil() {
                 <img
                     src={bgUganc}
                     alt="Campus"
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.5)' }}
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                 />
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(14,74,145,0.65)' }} />
-                <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-                    <h2 style={{ color: '#fff', fontFamily: 'Playfair Display, serif', fontSize: '2rem', marginBottom: '0.75rem', textShadow: '0 4px 10px rgba(0,0,0,0.5)' }}>
+                <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.65)' }} />                <div className="container" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+                    <h2 style={{ color: '#fff', fontFamily: 'Poppins, sans-serif', fontSize: '2rem', marginBottom: '0.75rem', textShadow: '0 4px 10px rgba(0,0,0,0.5)' }}>
                         Rejoignez le Centre Informatique
                     </h2>
                     <p style={{ opacity: 0.85, marginBottom: '2rem', maxWidth: 500, margin: '0 auto 2rem' }}>
                         Inscrivez-vous et construisez votre avenir dans le numérique avec nous dès la rentrée 2026.
                     </p>
                     <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '3rem' }}>
-                        <Link to="/contact" className="btn btn-gold" style={{ fontSize: '1rem' }}>
+                        <Link to="/contact" className="btn" style={{ background: '#fff', color: 'var(--bleu)', fontSize: '1rem', fontWeight: 600 }}>
                             S'inscrire maintenant
                         </Link>
                         <Link to="/departements" className="btn" style={{ background: 'transparent', color: '#fff', border: '1.5px solid rgba(255,255,255,0.5)', fontSize: '1rem' }}>
@@ -452,16 +521,16 @@ export default function Accueil() {
                         <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                             {reseaux.map(r => (
                                 <a key={r.nom} href={r.lien} style={{
-                                    background: 'rgba(255,255,255,0.12)',
+                                    background: 'rgba(255,255,255,0.1)',
                                     color: '#fff', borderRadius: 8,
                                     padding: '0.6rem 1.25rem',
                                     fontSize: '0.88rem', fontWeight: 500,
-                                    border: '1px solid rgba(255,255,255,0.18)',
+                                    border: '1px solid rgba(255,255,255,0.15)',
                                     display: 'flex', alignItems: 'center', gap: '0.5rem',
                                     transition: 'background 0.2s', textDecoration: 'none'
                                 }}
-                                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.22)'}
-                                    onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.12)'}
+                                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(10,102,194,0.3)'}
+                                    onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
                                 >
                                     <r.icon size={18} /> {r.nom}
                                 </a>
